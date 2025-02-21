@@ -36,17 +36,16 @@ disk() {
     BOOT_IMAGE=$(cat /proc/cmdline | sed 's/.*BOOT_IMAGE=\([^ ]*\).*/\1/')
     echo "Boot Image: $BOOT_IMAGE"
 
-    # Determine the version based on the BOOT_IMAGE name
-    if echo "$BOOT_IMAGE" | grep -q -- "-green"; then
-        lib_file="lib.squash-green"
-    elif echo "$BOOT_IMAGE" | grep -q -- "-blue"; then
-        lib_file="lib.squash-blue"
-    elif echo "$BOOT_IMAGE" | grep -q -- "-backup"; then
-        lib_file="lib.squash-backup"
+    # Extract extension after "vmlinuz"
+    extension=$(echo "$BOOT_IMAGE" | sed -n 's/.*vmlinuz\(-[a-zA-Z0-9_-]*\)/\1/p')
+
+    # Append the extracted extension to lib.squash if found, otherwise use default
+    if [ -n "$extension" ]; then
+        lib_file="lib.squash$extension"
     else
-        # Default case if no specific version is found
         lib_file="lib.squash"
     fi
+
     if [ -z "$HDVOLNAME" ]; then
 	if [ -e /dev/disk/by-label/THINSTATION ]; then
 		HDVOLNAME=THINSTATION
@@ -75,17 +74,6 @@ disk() {
     done
     if [ "$BOOTABLE" == "FALSE" ]; then
         printf "\rCould not find the storage volume!"
-#        if pkg_initialized debug || is_disabled "$HALTONERROR" ; then
-#            touch /tmp/splash.exit
-#            force_splash_exit
-#            echo_log "Debug enabled...dropping to shell."
-#            /bin/sh
-#        else
-#            touch /tmp/splash.exit
-#            force_splash_exit
-#            echo_log "Debug not enabled, boot halted."
-#            halt
-#        fi
     fi
     if [ -e "$UPDATE" ]; then
         rm "$FILE"
@@ -98,58 +86,15 @@ pxe()
 	MEMORY_CONSTRAINED=TRUE
 	FILE=/tmp/lib.squash
 	cd /tmp
-	splash_total=100
-	if [ -z "$FASTBOOT_URL" ] && [ ${initrd:0:7} == "http://" ]; then
+	if [ -z "$FASTBOOT_URL" ] && [ ${initrd:0:4} == "http" ]; then
 		FASTBOOT_URL=${initrd%/*}
 	fi
 	if [ -n "$FASTBOOT_URL" ]; then
-		wget $FASTBOOT_URL/lib.squash 2>&1 |tee /var/log/wget_progress &
-		sleep .2
-		OLDPROGRESS=$progress
-		if [ -n "`wget --help 2>&1 |grep -e BusyBox`" ]; then
-			while [ "$WPROGRESS" != "100" ] && [ -n "`pidof wget`" ]; do
-				sleep .5
-				WPROGRESS=`cat -v /var/log/wget_progress |sed -e 's/\^M/\n/g'|grep -e '|'| tail -n 1 |cut -c 22-24 |sed -e 's/ //g'`
-				if [ -z "$WPROGRESS" ]; then WPROGRESS=0 ; fi
-				let progress=WPROGRESS+OLDPROGRESS
-#				splash_progress
-			done
-		else
-			while [ "$WPROGRESS" != "100" ] && [ -n "`pidof wget`" ]; do
-				sleep .5
-				WPROGRESS=`cat -v /var/log/wget_progress |grep -e "%" |tail -n 1 |cut -c 63-65`
-				if [ -z "$WPROGRESS" ]; then WPROGRESS=0 ; fi
-				let progress=WPROGRESS+OLDPROGRESS
-#				splash_progress
-			done
-		fi
-		rm -rf /var/log/wget_progress
+		wget $FASTBOOT_URL/lib.squash 2>&1
 	else
-#		squash_server=`dirname $boot_file`
-#		if [ "$squash_server" == "." -o "$squash_server" == "/." ]; then
-#			unset squash_server
-#		else
-#			squash_server="`basename $squash_server`"/
-#		fi
 		FILE_NET="$squash_server$squash_location"lib.squash
-		tftp -g -l $FILE -r $FILE_NET -b $TFTP_BLOCKSIZE $SERVER_IP 2>&1 |tee /var/log/tftp_progress &
-		sleep .2
-		OLDPROGRESS=$progress
-		while [ "$TPROGRESS" != "100" ] && [ ! -z "`pidof tftp`" ]; do
-			sleep .5
-			TPROGRESS=`cat -v /var/log/tftp_progress |sed -e 's/\^M/\n/g'|tail -n 1 |cut -c 22-24`
-			if [ -z "$TPROGRESS" ]; then TPROGRESS=0 ; fi
-			let progress=TPROGRESS+OLDPROGRESS
-#			splash_progress
-		done
-		rm -rf /var/log/tftp_progress
+		tftp -g -l $FILE -r $FILE_NET -b $TFTP_BLOCKSIZE $SERVER_IP 2>&1
 	fi
-	let progress=OLDPROGRESS+100
-#	splash_progress
-#	if [ ! -e $FILE ]; then
-#		touch /tmp/splash.exit
-#		force_splash_exit
-#	fi
 }
 
 iso()
@@ -169,21 +114,11 @@ iso()
 	if [ ! -e $FILE ]; then
 		if [ -z $squash_location ]; then
 			filename=lib.squash
-			if [ -e $BASE_MOUNT_PATH/cdrom0/boot/isolinux/$filename ]; then
-				squash_location="boot/isolinux/"
-			elif [ -e $BASE_MOUNT_PATH/cdrom0/isolinux/$filename ]; then
-				squash_location="isolinux/"
-			elif [ -e $BASE_MOUNT_PATH/cdrom0/boot/syslinux/$filename ]; then
-				squash_location="boot/syslinux/"
-			elif [ -e $BASE_MOUNT_PATH/cdrom0/syslinux/$filename ]; then
-				squash_location="syslinux/"
-			elif [ -e $BASE_MOUNT_PATH/cdrom0/boot/$filename ]; then
+			if [ -e $BASE_MOUNT_PATH/cdrom0/boot/$filename ]; then
 				squash_location="boot/"
 			fi
 		fi
 		if [ -z $squash_location ]; then
-#			touch /tmp/splash.exit
-#			force_splash_exit
 			echo "Could not find the image on the CDROM!"
 		else
 			FILE=$BASE_MOUNT_PATH/cdrom0/"$squash_location"lib.squash
@@ -204,7 +139,7 @@ squash_loc()
 	elif [ "`echo $squash_location |cut -c 1`" == "." ]; then
 		squash_location="`echo $squash_location |cut -c 3-`/"
 	else
-		squash_location=$squash_location/
+		squash_location="$squash_location/"
 	fi
 }
 
@@ -221,16 +156,13 @@ mount_squash()
 		else
 			if [ ! -e /tmp/lib.squash ] ; then
 				cp $FILE /tmp/lib.squash
-				#systemctl start --no-block vmtouch.service
 			fi
 			systemd-mount --fsck=no -o ro,loop -t squashfs /tmp/lib.squash /lib64
-			#systemctl start --no-block vmtouch.service
 		fi
 	fi
 }
 # This has to be a double negative test. Only is_disabled() will
 # return false with a non-null value that isn't explicitly disabled.
-#used > /var/log/used
 if ! is_disabled $FASTBOOT; then
 	export FASTBOOT
 	if [ -n "$DEBUG_INIT" ] ; then
