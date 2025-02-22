@@ -2166,6 +2166,9 @@ wrap_efi()
 		done
 		sys_copy /usr/share/grub/unicode.pf2 $ESP/boot/grub2/fonts/unicode.pf2
 
+		sys_copy boot-images/templates/ipxe/$ts_grubtheme/ipxe.cfg $ESP/boot/ipxe.cfg
+		sed -i -e "s/\$KERNEL_PARAMETERS/$KERNEL_PARAMETERS/g" $ESP/boot/ipxe.cfg
+
 		if is_enabled $ts_earlymicrocode ; then
 			sed -i -e "s:/boot/initrd:/boot/ucode /boot/initrd:" $ESP/boot/grub2/grub.cfg
 		fi
