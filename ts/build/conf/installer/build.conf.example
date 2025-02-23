@@ -123,6 +123,7 @@ package ntpd		# Classic utility to obtain date & time from network
 #package cpufreq
 #package cpuspeed
 #package wine                   # Windows Application Execution Platform
+package dosfstools
 
 #!!X related
 # --- XOrg 7.7

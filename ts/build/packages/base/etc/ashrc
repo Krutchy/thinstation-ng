@@ -74,6 +74,12 @@ set_proxy()
 get_gnome_proxy
 set_proxy
 
+if [ "$UID" != "0" ]; then
+        umask 027
+else
+    	umask 022
+fi
+
 cd ~
 
 PS1='\h:\w\$ '
