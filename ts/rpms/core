@@ -1,0 +1,5 @@
+basesystem
+dnf
+dnf-plugins-core
+filesystem
+systemd-devel
