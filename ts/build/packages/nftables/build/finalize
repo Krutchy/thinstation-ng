@@ -1,5 +1,5 @@
 #nftables 60
 #systemctl enable nftables
 . /build/scripts/nftables_postinstall.sh 1
-. /build/scripts/iptables-nft_postinstall.sh 1
+#. /build/scripts/iptables-nft_postinstall.sh 1
 . /build/scripts/iptables-legacy_postinstall.sh 1
