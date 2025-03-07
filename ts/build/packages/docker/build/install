@@ -1,0 +1,12 @@
+#!/bin/sh
+
+export PACKAGE="docker"
+export PORTS="docker-cli docker-buildx docker-compose docker-compose-switch checkpolicy container-selinux containerd memcached-selinux moby-filesystem passt-selinux policycoreutils-python-utils python3-audit python3-libselinux python3-libsemanage python3-policycoreutils python3-setools rpm-plugin-selinux runc tini-static moby-engine moby-engine-nano"
+export DROP_FILES=""
+export DROP_DIRS=""
+export CREATE_EMPTY_DIRS=""
+repackage -e
+
+returnval=$?
+
+exit $returnval

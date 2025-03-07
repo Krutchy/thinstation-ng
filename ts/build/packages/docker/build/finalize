@@ -1,0 +1,10 @@
+#docker 90
+. /build/scripts/container-selinux_postinstall.sh 1
+. /build/scripts/containerd_postinstall.sh 1
+. /build/scripts/memcached-selinux_preinstall.sh 1
+. /build/scripts/moby-engine_preinstall.sh 1
+. /build/scripts/passt-selinux_preinstall.sh 1
+. /build/scripts/container-selinux_preinstall.sh 1
+. /build/scripts/memcached-selinux_postinstall.sh 1
+. /build/scripts/moby-engine_postinstall.sh 1
+. /build/scripts/passt-selinux_postinstall.sh 1

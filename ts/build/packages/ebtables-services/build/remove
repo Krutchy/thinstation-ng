@@ -1,0 +1,5 @@
+#!/bin/sh
+
+export PACKAGE=ebtables-services
+repackage -c
+

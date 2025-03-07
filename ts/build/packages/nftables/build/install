@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export PACKAGE="nftables"
-export PORTS="nftables"
+export PORTS="nftables iptables-legacy iptables-libs"
 export DROP_FILES=""
 export DROP_DIRS=""
 export CREATE_EMPTY_DIRS=""

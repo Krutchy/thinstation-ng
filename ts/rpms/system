@@ -1,10 +1,13 @@
 ImageMagick
+cmake
 cups-devel
 dbus-devel
 dialog
+dosfstools
 dropbear
 fedpkg
 gcc
+glib2-devel
 glibc-locale-source
 glx-utils
 heimdal-libs
@@ -23,6 +26,7 @@ net-tools
 openssl
 pciutils
 pip
+psmisc
 poppler-utils
 python-devel
 qemu

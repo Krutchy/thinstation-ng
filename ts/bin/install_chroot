@@ -3,14 +3,14 @@
 # URL: http://www.thinstation.org
 # Maintainer: Donald A. Cupp Jr. (don cupp jr at ya hoo dot com)
 
-core_ports="`cat ts/rpms/core |sed ':a;N;$!ba;s/\n/ /g'`"
-grub_ports="`cat ts/rpms/grub |sed ':a;N;$!ba;s/\n/ /g'`"
-kernel_ports="`cat ts/rpms/kernel |sed ':a;N;$!ba;s/\n/ /g'`"
-firmware_ports="`cat ts/rpms/firmware |sed ':a;N;$!ba;s/\n/ /g'`"
-system_ports="`cat ts/rpms/system |sed ':a;N;$!ba;s/\n/ /g'`"
-ts_ports="`cat ts/rpms/ts |sed ':a;N;$!ba;s/\n/ /g'`"
+core_ports="`grep -v '^\s*#' ts/rpms/core |sed ':a;N;$!ba;s/\n/ /g'`"
+grub_ports="`grep -v '^\s*#' ts/rpms/grub |sed ':a;N;$!ba;s/\n/ /g'`"
+kernel_ports="`grep -v '^\s*#' ts/rpms/kernel |sed ':a;N;$!ba;s/\n/ /g'`"
+firmware_ports="`grep -v '^\s*#' ts/rpms/firmware |sed ':a;N;$!ba;s/\n/ /g'`"
+system_ports="`grep -v '^\s*#' ts/rpms/system |sed ':a;N;$!ba;s/\n/ /g'`"
+ts_ports="`grep -v '^\s*#' ts/rpms/ts |sed ':a;N;$!ba;s/\n/ /g'`"
 if [ -e ts/rpms/other ]; then
-	other_ports="`cat ts/rpms/other |sed ':a;N;$!ba;s/\n/ /g'`"
+	other_ports="`grep -v '^\s*#' ts/rpms/other |sed ':a;N;$!ba;s/\n/ /g'`"
 fi
 
 stage1()

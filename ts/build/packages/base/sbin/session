@@ -31,12 +31,14 @@ if [ "$1" == "open" ]; then
 	umask 027
 	mkdir -p $HOME
 	IFS=$'\n'
-	for file in `find /etc/skel |cut -d '/' -f4-`; do
-		if ! [ -e $HOME/"$file" ]; then
-			mkdir -p $HOME/"`dirname $file`"
-			cp -a /etc/skel/"$file" $HOME/"$file"
-		fi
-	done
+	if [ -d /etc/skel ]; then
+		for file in `find /etc/skel |cut -d '/' -f4-`; do
+			if ! [ -e $HOME/"$file" ]; then
+				mkdir -p $HOME/"`dirname $file`"
+				cp -a /etc/skel/"$file" $HOME/"$file"
+			fi
+		done
+	fi
 	unset IFS
 	chown -R "$TSUSER:`id -gn $TSUSER`" $HOME
 	chmod 2700 $HOME

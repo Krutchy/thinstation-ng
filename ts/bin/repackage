@@ -94,6 +94,7 @@ extract_scripts()
 		# Append script content, skipping the header line
 		sed '1d' "$file" >> "$output_file"
 		rm "$file" # Clean up temporary split file
+		sed -i 's/^\s*exit\s\+0\s*$/:/g' "$output_file"
 	done
 	if [ -z "`ls -A $pkgpath/build/scripts`" ]; then
 		rmdir $pkgpath/build/scripts

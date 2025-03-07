@@ -1,5 +1,9 @@
 #!/bin/bash
 set -x
+start=$PWD
+self="$0"
+self_path="`echo $0 |sed -e 's|ts/bin/bt||g'`"
+cd "$self_path"
 #set -e
 
 setup_qemu()
@@ -163,3 +167,4 @@ case $1 in
 		echo "Exit code $?"
 	;;
 esac
+cd "$start"
