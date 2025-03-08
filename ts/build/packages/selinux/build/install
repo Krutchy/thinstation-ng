@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export PACKAGE=selinux
-export PORTS="selinux-policy selinux-policy-targeted libselinux-utils policycoreutils libsemanage"
+export PORTS="selinux-policy selinux-policy-targeted libselinux-utils policycoreutils libsemanage checkpolicy"
 repackage -e
 
 returnval=$?

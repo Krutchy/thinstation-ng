@@ -1,8 +1,8 @@
 [Unit]
 Description=Update CA Trust if files are present in anchors
 DefaultDependencies=no
-After=var-prstnt.mount persistent-files.service
-Before=display-manager.service tsinit.target
+After=var-prstnt.mount persistent-files.service tsinit.target
+Before=display-manager.service
 ConditionPathIsMountPoint=/var/prstnt
 
 [Service]
@@ -10,5 +10,5 @@ Type=oneshot
 ExecStart=/bin/update-ca-trust
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=tsinit.target
 

@@ -5,6 +5,7 @@ dbus-devel
 dialog
 dosfstools
 dropbear
+e2fsprogs
 fedpkg
 gcc
 glib2-devel
@@ -24,6 +25,7 @@ most
 nano
 net-tools
 openssl
+parted
 pciutils
 pip
 psmisc

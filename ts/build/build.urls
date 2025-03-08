@@ -23,3 +23,4 @@ param teamsurl		https://packages.microsoft.com/repos/ms-teams/pool/main/t/teams/
 param cups_lexmarkurl   file://downloads/Lexmark-UPD-PPD-Files-1.2.0-03212024.x86_64.rpm
 param cisco_secure_client_darturl   file://downloads/cisco-secure-client-dart-5.1.7.80-1.x86_64.rpm
 param cisco_secure_client_vpnurl   file://downloads/cisco-secure-client-vpn-5.1.7.80-1.x86_64.rpm
+param splunkurl		file://downloads/splunk-9.3.2-d8bb32809498.x86_64.rpm

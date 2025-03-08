@@ -1,7 +1,7 @@
 #!/bin/sh
 
-export PACKAGE="nftables"
-export PORTS="nftables iptables-legacy iptables-legacy-libs iptables-libs"
+export PACKAGE="container-selinux"
+export PORTS="container-selinux"
 export DROP_FILES=""
 export DROP_DIRS=""
 export CREATE_EMPTY_DIRS=""
