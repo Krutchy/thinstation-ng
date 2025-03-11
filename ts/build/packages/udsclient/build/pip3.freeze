@@ -1,0 +1,8 @@
+pyqt5
+cryptography
+certifi
+paramiko
+bcrypt
+psutil
+pynacl
+pyasn1
