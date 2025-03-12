@@ -11,6 +11,7 @@ export PORTS="	exo \
 		libxfce4util \
 		startup-notification \
 		xdg-user-dirs \
+		xdg-utils \
 		libglade2 \
 		xfce4-panel \
 		xfce4-session \
