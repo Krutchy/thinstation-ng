@@ -74,6 +74,7 @@ disk() {
     done
     if [ "$BOOTABLE" == "FALSE" ]; then
         printf "\rCould not find the storage volume!"
+	exit 1
     fi
     if [ -e "$UPDATE" ]; then
         rm "$FILE"
@@ -120,6 +121,7 @@ iso()
 		fi
 		if [ -z $squash_location ]; then
 			echo "Could not find the image on the CDROM!"
+			exit 1
 		else
 			FILE=$BASE_MOUNT_PATH/cdrom0/"$squash_location"lib.squash
 		fi
