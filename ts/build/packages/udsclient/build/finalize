@@ -1,0 +1,8 @@
+#udsclient 60
+mimelist=/etc/xdg/mimeapps.list
+
+mkdir -p `dirname $mimelist`
+if [ -e $mimelist ] && ! grep -e "Default Applications" $mimelist -q || ! [ -e $mimelist ]; then
+	echo '[Default Applications]' >> $mimelist
+fi
+echo 'x-scheme-handler/udss=UDSClient.desktop' >> $mimelist
