@@ -2,7 +2,7 @@
 
 export PACKAGE=vboxguest
 export PORTS="virtualbox-guest-additions"
-export DROP_FILES=lib64/sysusers.d/virtualbox-guest-additions.conf
+export DROP_DIRS=lib64/sysusers.d
 repackage -e
 
 exit $returnval
