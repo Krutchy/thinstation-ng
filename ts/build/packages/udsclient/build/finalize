@@ -8,12 +8,22 @@ fi
 echo 'x-scheme-handler/udss=UDSClient.desktop' >> $mimelist
 
 if [ -n "$UDS_BROKER_DNS_NAME" ]; then
-	mkdir -p /etc/opt/chrome/policies/managed
-	echo "{
-  \"AutoOpenAllowedForURLs\": [\"https://$UDS_BROKER_DNS_NAME\"]
-}" > /etc/opt/chrome/policies/managed/auto_open_policy.json
+    mkdir -p /etc/opt/chrome/policies/managed
+    cat <<EOF > /etc/opt/chrome/policies/managed/auto_open_policy.json
+{
+    "AutoLaunchProtocolsFromOrigins": [
+        {
+            "allowed_origins": ["https://$UDS_BROKER_DNS_NAME"],
+            "protocol": "udss"
+        }
+    ]
+}
+EOF
 
-	mkdir -p /etc/skel/.config/Virtual\ Cable\ S.L.U.
-	echo "[endpoints]
-$UDS_BROKER_DNS_NAME=true" > /etc/skel/.config/Virtual\ Cable\ S.L.U./UDS\ Connector.conf
+    mkdir -p /etc/skel/.config/Virtual\ Cable\ S.L.U.
+    cat <<EOF> /etc/skel/.config/Virtual\ Cable\ S.L.U./UDS\ Connector.conf
+[endpoints]
+$UDS_BROKER_DNS_NAME=true"
+EOF
+
 fi
