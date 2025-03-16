@@ -275,6 +275,7 @@ disk_select()
 	index=0
 
 	for disk in	`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /sd |grep -v [0-9]` \
+			`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /xvd |grep -v [0-9]` \
 			`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /nvme |grep -v p[0-9]`; do
 		disksize=`blockdev --report | sed -r 's/[[:space:]]+/:/g' | grep -e $disk\$ | cut -d ":" -f6`
 		disks[$index]=$disk

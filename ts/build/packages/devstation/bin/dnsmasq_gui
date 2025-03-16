@@ -376,7 +376,7 @@ if [ -z "${wan_interfaces[@]}" ]; then
         exit 1
 fi
 if [ -z "${lan_interfaces[@]}" ]; then
-	x_echo "No LAN interface" "No suitable interface was found that could saftely host a DHCP server."
+	x_echo "No LAN interface" "No suitable interface was found that could safely host a DHCP server."
 	exit 1
 fi
 if [ "${wan_interfaces[@]}" == "${lan_interfaces[@]}" ]; then
