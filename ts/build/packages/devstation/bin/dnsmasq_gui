@@ -152,7 +152,7 @@ read_config() {
 		DHCP_END_4="150"
 
 		BIOS_FILE="boot/grub2/pxeboot.img"
-		EFI_FILE="EFI/boot/grubx64.efi"
+		EFI_FILE="EFI/BOOT/grubx64.efi"
 
 		LAN_IP_1="192"
 		LAN_IP_2="168"
@@ -379,8 +379,8 @@ if [ -z "${lan_interfaces[@]}" ]; then
 	x_echo "No LAN interface" "No suitable interface was found that could safely host a DHCP server."
 	exit 1
 fi
-if [ "${wan_interfaces[@]}" == "${lan_interfaces[@]}" ]; then
-	x_echo "Single interface" "We only found one interface, so this utility will not work"
+if [ "${#wan_interfaces[@]}" -eq 1 ] && [ "${#lan_interfaces[@]}" -eq 1 ] && [ "${wan_interfaces[0]}" == "${lan_interfaces[0]}" ]; then
+	x_echo "Single interface" "We only found one interface, so this utility will not work."
 	exit 1
 fi
 set_main_dialog
