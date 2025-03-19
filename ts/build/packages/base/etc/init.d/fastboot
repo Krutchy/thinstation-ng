@@ -2,10 +2,10 @@
 
 . `dirname $0`/common
 
-if [ -n "$DEBUG_BOOT" ]; then
+#if [ -n "$DEBUG_BOOT" ]; then
 	set -x
 	exec </dev/null >/var/log/fastboot.log  2>&1
-fi
+#fi
 
 search()
 {
@@ -93,6 +93,12 @@ pxe()
 	if [ -n "$FASTBOOT_URL" ]; then
 		wget $FASTBOOT_URL/lib.squash 2>&1
 	else
+                local timeout=15
+                while [ -z "$SERVER_IP" ] && [ "$timeout" -ne "0" ]; do
+                        sleep .1
+                        . /etc/thinstation.global
+                        let timeout-=1
+                done
 		FILE_NET="$squash_server$squash_location"lib.squash
 		tftp -g -l $FILE -r $FILE_NET -b $TFTP_BLOCKSIZE $SERVER_IP 2>&1
 	fi

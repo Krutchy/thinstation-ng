@@ -2,6 +2,8 @@
 
 . /etc/thinstation.global
 
+min_disk_size=30
+
 exec </dev/null >/var/log/installer.log 2>&1
 set -x
 
@@ -273,22 +275,35 @@ resolution_select()
 disk_select()
 {
 	index=0
+	declare -a disks
 
-	for disk in	`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /sd |grep -v [0-9]` \
-			`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /xvd |grep -v [0-9]` \
-			`blockdev --report | sed -r 's/[[:space:]]+/:/g' | cut -d ":" -f7 | grep -e /nvme |grep -v p[0-9]`; do
-		disksize=`blockdev --report | sed -r 's/[[:space:]]+/:/g' | grep -e $disk\$ | cut -d ":" -f6`
-		disks[$index]=$disk
-		if [ "${disksize[$index]}" -gt "30000000000" ] ; then
-			gigs=$(( ${disksize}/1024/1024/1024 ))
-			echo "$index|${disks[$index]}|$gigs" >> $tempdir/disklist
-			let index+=1
+	# Define disk prefixes
+	prefixes=("sd" "xvd" "nvme")
+
+	# Extract disks based on prefixes
+	for prefix in "${prefixes[@]}"; do
+		if [ $prefix == "nvme" ]; then
+			disks+=( $(blockdev --report | awk '$7 ~ "/'$prefix'" && $7 !~ /p[0-9]/ {print $7}') )
+		else
+			disks+=( $(blockdev --report | awk '$7 ~ "/'$prefix'" && $7 !~ /[0-9]/ {print $7}') )
 		fi
 	done
 
-	if [ "$[index]" == "1" ] ; then
+	# Process each disk
+	for disk in "${disks[@]}"; do
+		# Extract disk size
+		disksize=$(blockdev --getsize64 $disk)
+		gigs=$(( disksize / 1024 / 1024 / 1024 ))
+
+		if [[ "$gigs" -ge $min_disk_size ]]; then
+			echo "$index|$disk|$gigs" >> $tempdir/disklist
+			((index++))
+		fi
+	done
+
+	if [ "$[index]" -eq 1 ] ; then
 		index=0
-	elif [ "$index" -gt "1" ] ; then
+	elif [ "$index" -gt 1 ] ; then
 		export MAIN_DIALOG='
 		<window title="Storage" decorated="true" resizable="false" image-name="/lib/pixmaps/installer_32x32.xpm">
 			<vbox>
@@ -329,7 +344,7 @@ disk_select()
 			exit 1
 		fi
 	else
-		x_error "No usable disk!" "The DevStation environment requirees a disk of at least 30GB in size."
+		x_error "No usable disk!" "The DevStation environment requirees a disk of at least $(min_disk_size)GB in size."
 		exit 1
 	fi
 
