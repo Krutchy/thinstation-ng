@@ -76,7 +76,7 @@ module isofs                 # ISO9660 file system for CD-ROMs
 module udf                   # Universal Disk Format for CD/DVDs
 module fuse                  # Filesystem in Userspace
 module fuse3                 # Updated FUSE version
-#module ntfs                  # NTFS file system support
+#module ntfs3                 # NTFS file system support
 #module cifs                  # CIFS/SMB file system support
 #module autofs4               # Automount file system support
 
