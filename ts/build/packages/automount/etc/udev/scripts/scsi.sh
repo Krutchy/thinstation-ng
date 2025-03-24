@@ -54,7 +54,7 @@ _unmount()
 }
 
 # Exit if were 'not' needed, or handle simple umounts or swapon
-if [ -n "`busybox pgrep udisksd`" ]; then
+if [ -n "`busybox.shared pgrep udisksd`" ]; then
 	exit 0
 elif [ "$ACTION" == "remove" ]; then
 	_unmount
@@ -78,7 +78,7 @@ fi
 
 cmount()
 {
-	if [ "`busybox mountpoint -n $1`" == "/dev/$devpath $1" ] \
+	if [ "`busybox.shared mountpoint -n $1`" == "/dev/$devpath $1" ] \
 	&& [ -n "`ls -A $1|grep -v 'Not Mounted'`" ]; then
 		return 0
 	fi
