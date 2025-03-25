@@ -9,7 +9,7 @@ repackage -e
 
 returnval=$?
 
-for policy in DEFAULT FIPS; do
+for policy in LEGACY DEFAULT FIPS; do
         mkdir -p /build/packages/crypto-policies/etc/crypto-policies/$policy
         update-crypto-policies --set $policy >/dev/null 2>&1
         mv /etc/crypto-policies/* /build/packages/crypto-policies/etc/crypto-policies/$policy/.
