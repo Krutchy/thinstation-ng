@@ -7,4 +7,5 @@ xorg7
 at-spi2
 gnome-core
 gtk-3.0
-xfce-polkit networkmanager
+xfce-polkit
+networkmanager
