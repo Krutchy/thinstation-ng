@@ -2,6 +2,8 @@
 
 . `dirname $0`/common
 
+mkdir -p /etc/X11/xorg.conf.d
+
 get_options ()
 {
 	tmpfile=/tmp/x_$1
