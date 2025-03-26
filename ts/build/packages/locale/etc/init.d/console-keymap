@@ -18,7 +18,7 @@
 		fi
                 cat $LOCALE >> $TS_RUNTIME
 		. $LOCALE
-		echo "LANG=\"$LANG\"" > /etc/locale.conf
+		echo "LANG=$LANG" > /etc/locale.conf
         else
 		echo_log "\nNotice!, no locale found. You should really choose a locale in build.conf even if you are in the US"
 		echo_log "Continuing boot with default C locale"

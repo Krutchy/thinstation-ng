@@ -1794,6 +1794,9 @@ filesystem_fixups()
 	fi
         if echo "$ts_kernelcmdline" |grep -q -e 'fips=1'; then
                 touch tmp-tree/FIPS
+		cp -a /usr/lib64/hmaccalc tmp-tree/lib64/.
+		cp -a /usr/lib64/fipscheck tmp-tree/lib64/.
+		cp -a /usr/lib64/.*.hmac tmp-tree/lib64/.
         fi
 	if [ -e ./tmp-tree/finalize ]; then
 		echo -e "\tRunning Finalize\n"

@@ -1,18 +1,2 @@
-#f2505cdabca05f1d7259ce41ba108887  .dna
+#7b16e2dcceebe37964efc8b90a5ab644  .dna
 
-mkdir -p /ts/build/packages/crypto-policies/build/extra/lib64
-mkdir -p /ts/build/packages/crypto-policies/build/extra/lib64/fipscheck
-mkdir -p /ts/build/packages/crypto-policies/build/extra/lib64/hmaccalc
-ln /usr/lib64/.libgmp.so.10.5.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libgmp.so.10.5.0.hmac
-ln /usr/lib64/.libgnutls.so.30.40.3.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libgnutls.so.30.40.3.hmac
-ln /usr/lib64/.libhogweed.so.6.9.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libhogweed.so.6.9.hmac
-ln /usr/lib64/.libnettle.so.8.9.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libnettle.so.8.9.hmac
-ln /usr/lib64/fipscheck/libcrypt.so.2.0.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/fipscheck/libcrypt.so.2.0.0.hmac
-ln /usr/lib64/hmaccalc/kcapi-hasher.hmac /ts/build/packages/crypto-policies/build/extra/lib64/hmaccalc/kcapi-hasher.hmac
-ln /usr/lib64/hmaccalc/libkcapi.so.1.5.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/hmaccalc/libkcapi.so.1.5.0.hmac
-ln -sf .libgmp.so.10.5.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libgmp.so.10.hmac
-ln -sf .libgnutls.so.30.40.3.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libgnutls.so.30.hmac
-ln -sf .libhogweed.so.6.9.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libhogweed.so.6.hmac
-ln -sf .libnettle.so.8.9.hmac /ts/build/packages/crypto-policies/build/extra/lib64/.libnettle.so.8.hmac
-ln -sf libcrypt.so.2.0.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/fipscheck/libcrypt.so.2.hmac
-ln -sf libkcapi.so.1.5.0.hmac /ts/build/packages/crypto-policies/build/extra/lib64/hmaccalc/libkcapi.so.1.hmac
