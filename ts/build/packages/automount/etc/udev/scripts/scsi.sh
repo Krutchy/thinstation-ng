@@ -92,6 +92,10 @@ do_mounts()
 		_unmount
 		mkdir -p $mtpath
 		touch $mtpath/"Not Mounted"
+		if [ "$ID_FS_TYPE" == "ntfs" ]; then
+			ID_FS_TYPE="ntfs3"
+			mount_opts=$(echo $mount_opts | sed "s/utf8/iocharset=utf8/")
+		fi
 		if [ -n "$mount_opts" ]; then
 			systemd-mount --type=$ID_FS_TYPE --no-block --fsck=no -o $mount_opts /dev/$devpath $mtpath
 		else
@@ -181,7 +185,11 @@ elif ( [ "$TYPE" == "sd" ] || [ "$TYPE" == "mm" ] ) \
 		&& [ -z "`echo $DISK_MOUNT_OPTIONS |grep -e sync`" ]; then
 			DISK_MOUNT_OPTIONS=$DISK_MOUNT_OPTIONS,sync
 		fi
-		mtpath=$BASE_MOUNT_PATH/disc/$name/part$node
+		if [ -n $USB_MOUNT_DIR ]; then
+			mtpath=$BASE_MOUNT_PATH/$USB_MOUNT_DIR/disc/$name/part$node
+		else
+			mtpath=$BASE_MOUNT_PATH/disc/$name/part$node
+		fi
 		mount_opts="$DISK_MOUNT_OPTIONS"
 		do_mounts
 	fi
