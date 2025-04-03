@@ -46,7 +46,7 @@ ThinStation now requires either:
 
    ```bash
    git clone https://github.com/Thinstation/thinstation-ng.git
-   cd thinstation
+   cd thinstation-ng
    ```
 
 ### Using the DevStation Installer
