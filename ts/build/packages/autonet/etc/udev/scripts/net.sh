@@ -51,7 +51,7 @@ dev_type()
 	if [ -z "$DEVTYPE" ]; then
 		if [ "$INTERFACE" = "lo" ] ; then
 			DEVTYPE=lo
-		elif [ -e /sys/$DEVPATH/wireless ]; then
+		elif [ -e /sys/class/net/$DEVPATH/wireless ]; then
 			DEVTYPE=wlan
 		else
 			DEVTYPE=eth
