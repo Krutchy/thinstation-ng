@@ -220,6 +220,20 @@ key-mgmt=wpa-psk
 psk=$WIRELESS_WPAKEY
 
 EOF
+    elif [ -n "$WIRELESS_IDENTITY" ] && [ -n "$WIRELESS_PASSWORD" ]; then
+      cat <<EOF>> $SCFILE
+security=802-11-wireless-security
+
+[wifi-security]
+key-mgmt=wpa-eap
+
+[802-1x]
+eap=${WIRELESS_EAP:="peap"}
+identity=$WIRELESS_IDENTITY
+phase2-auth=${WIRELESS_AUTH:="mschapv2"}
+password=$WIRELESS_PASSWORD
+
+EOF
     else
         echo "No WPA key provided, setting up an open network..."
         echo "security=none" >> $SCFILE
