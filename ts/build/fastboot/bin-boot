@@ -41,6 +41,7 @@ grep
 ifconfig
 ifrename
 iwconfig
+iw
 iwevent
 iwgetid
 iwlist
