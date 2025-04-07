@@ -187,8 +187,8 @@ append_wireless_connection() {
     echo "Appending wireless connection configuration..."
     : ${WIRELESS_MODE:="infrastructure"}
 
-    # Extract the wireless interface name using iwconfig
-    wireless_interface=$(iwconfig 2>&1 | awk '/IEEE 802.11/ {print $1}')
+    # Extract the wireless interface name using iw
+    wireless_interface=$(iw dev 2>&1 | awk '/Interface / {print $2}')
 	if [ -z "$wireless_interface" ]; then
 		echo "No wireless adapters found."
 		return 1
@@ -230,6 +230,7 @@ key-mgmt=wpa-eap
 [802-1x]
 eap=${WIRELESS_EAP:="peap"}
 identity=$WIRELESS_IDENTITY
+phase1-auth-flags=${WIRELESS_AUTH_FLAGS:="32"}
 phase2-auth=${WIRELESS_AUTH:="mschapv2"}
 password=$WIRELESS_PASSWORD
 
