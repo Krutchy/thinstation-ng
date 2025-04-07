@@ -230,7 +230,7 @@ key-mgmt=wpa-eap
 [802-1x]
 eap=${WIRELESS_EAP:="peap"}
 identity=$WIRELESS_IDENTITY
-phase1-auth-flags=${WIRELESS_AUTH_FLAGS:="32"}
+phase1-auth-flags=${WIRELESS_AUTH_FLAGS:="0"}
 phase2-auth=${WIRELESS_AUTH:="mschapv2"}
 password=$WIRELESS_PASSWORD
 
