@@ -38,6 +38,7 @@ fbsplashd
 fbsplashd.static
 getty
 grep
+id
 ifconfig
 ifrename
 iwconfig

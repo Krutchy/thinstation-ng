@@ -188,7 +188,13 @@ append_wireless_connection() {
     : ${WIRELESS_MODE:="infrastructure"}
 
     # Extract the wireless interface name using iw
-    wireless_interface=$(iw dev 2>&1 | awk '/Interface / {print $2}')
+    timeout=0
+    while [ -z "$wireless_interface" ] || [ "$wireless_interface" == wlan* ] && [ "$timeout" -lt "100" ]; do
+	wireless_interface=$(iw dev 2>&1 | awk '/Interface / {print $2}')
+	let timeout+=1
+        sleep .1
+    done
+
 	if [ -z "$wireless_interface" ]; then
 		echo "No wireless adapters found."
 		return 1
@@ -258,7 +264,10 @@ EOF
 #set -e
 
 #set -x
-#exec </dev/null >/var/log/networkmanager.log 2>&1
+#exec </dev/null >>/var/log/networkmanager.log 2>&1
+
+echo "Starting a NetworkManager Configuration Run"
+#echo $@
 
 case $1 in
 	init)
