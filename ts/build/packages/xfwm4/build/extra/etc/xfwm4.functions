@@ -172,7 +172,7 @@ xfconf_settings()
 				remotebg=${TS_BACKGROUND_FILE}
 			fi
 			tftp -g ${SERVER_IP} -l /tmp/`basename $TS_BACKGROUND_FILE` -r ${remotebg}
-			background=/tmp/`$TS_BACKGROUND_FILE`
+			background=/tmp/`basename $TS_BACKGROUND_FILE`
 			if is_enabled $WALLPAPER_STRETCH; then
 				bg_mode=3
 			else
