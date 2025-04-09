@@ -3,9 +3,9 @@
 
 TSUSER="`id -un`"
 if [ "$TSUSER" != "root" ]; then
-        HOME=/home/$TSUSER
+	HOME=/home/$TSUSER
 else
-        HOME=/root
+	HOME=/root
 fi
 
 make_desktop()
@@ -38,9 +38,9 @@ make_desktop()
 
 xfconf_settings()
 {
-#        xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "xfce4-settings-helper" --create
-#        xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "Xfce volume control"
-#        xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "org.freedesktop.network-manager-applet"
+#	xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "xfce4-settings-helper" --create
+#	xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "Xfce volume control"
+#	xfconf-query -c xfce4-notifyd -p /applications/known_applications -a -t string -s "org.freedesktop.network-manager-applet"
 #	xfconf-query -c xfce4-notifyd -p /applications/muted_applications -a -t string -s "xfce4-settings-helper" --create
 #	xfconf-query -c xfce4-notifyd -p /applications/muted_applications -a -t string -s "Xfce volume control"
 #	xfconf-query -c xfce4-notifyd -p /applications/muted_applications -a -t string -s "org.freedesktop.network-manager-applet"
@@ -63,7 +63,7 @@ xfconf_settings()
 	xfconf-query -c xfce4-session -p /general/SaveOnExit -t bool -s false -n
 #	xfconf-query -c xfce4-session -p /shutdown/ShowSuspend -t bool -s false -n
 	xfconf-query -c xfce4-session -p /shutdown/ShowHibernate -t bool -s false -n
-        xfconf-query -c xfce4-session -p /shutdown/ShowSwitchUser -t bool -s false -n
+	xfconf-query -c xfce4-session -p /shutdown/ShowSwitchUser -t bool -s false -n
 
 	if is_disabled $DESKTOP_SHOWTRASH; then
 		xfconf-query -c xfce4-desktop -p /desktop-icons/file-icons/show-trash -t bool -s false -n
@@ -117,16 +117,16 @@ xfconf_settings()
 		xfconf-query -c xfwm4 -p /general/workspace_names --reset
 	fi
 
-        if [ -e /lib64/xfce4/panel/plugins/libxkb.so ]; then
+	if [ -e /lib64/xfce4/panel/plugins/libxkb.so ]; then
 		PANEL="$PANEL -t int -s 22"
 		xfconf-query -c xfce4-panel -p /plugins/plugin-22 -t string -s xkb -n
 	fi
 
-        if [ -e /lib64/xfce4/panel/plugins/libpulseaudio-plugin.so ]; then
+	if [ -e /lib64/xfce4/panel/plugins/libpulseaudio-plugin.so ]; then
 		xfconf-query -c xfce4-panel -p /plugins/plugin-18 -n -t string -s "pulseaudio"
 		xfconf-query -c xfce4-panel -p /plugins/plugin-18/enable-keyboard-shortcuts -n -t bool -s true
 		PULSE_PANEL="-t int -s 18"
-        fi
+	fi
 
 	if is_disabled $MENU_SHOWCLOCK; then
 		xfconf-query -c xfce4-panel -p /plugins/plugin-5 --reset
@@ -165,7 +165,20 @@ xfconf_settings()
 		xfconf-query -c xfce4-desktop -p /desktop-icons/use-custom-font-size -t bool -s true -n
 		xfconf-query -c xfce4-desktop -p /desktop-icons/font-size -t double -s $DESKTOP_FONT_SIZE -n
 	fi
-	if [ -e /etc/background.svg ]; then
+		if [ ${TS_BACKGROUND_FILE} ]; then
+			if [ -n ${TFTP_BG_REP} ]; then
+				remotebg=${TFTP_BG_REP}/${TS_BACKGROUND_FILE}
+			else
+				remotebg=${TS_BACKGROUND_FILE}
+			fi
+			tftp -g ${SERVER_IP} -l /tmp/`basename $TS_BACKGROUND_FILE` -r ${remotebg}
+			background=/tmp/`$TS_BACKGROUND_FILE`
+			if is_enabled $WALLPAPER_STRETCH; then
+				bg_mode=3
+			else
+				bg_mode=4
+			fi
+	elif [ -e /etc/background.svg ]; then
 		background=/etc/background.svg
 		if is_enabled $WALLPAPER_STRETCH; then
 			bg_mode=3
@@ -466,7 +479,7 @@ wm_menu()
 
 
 	rm -rf $IMENU
-        rm -rf /tmp/typelist
+	rm -rf /tmp/typelist
 
 }
 
