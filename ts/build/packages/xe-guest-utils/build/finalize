@@ -1,0 +1,3 @@
+#xen-guest-utils 90
+. ./build/scripts/xe-guest-utilities-latest_postinstall.sh 1
+systemctl enable xe-linux-distribution
