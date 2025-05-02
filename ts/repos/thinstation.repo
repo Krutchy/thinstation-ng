@@ -1,6 +1,0 @@
-[thinstation-rpms]
-name=ThinStation RPM Repository
-baseurl=https://raw.githubusercontent.com/Thinstation/thinstation-rpms/refs/heads/main/x86_64/
-enabled=1
-gpgcheck=0
-priority=10

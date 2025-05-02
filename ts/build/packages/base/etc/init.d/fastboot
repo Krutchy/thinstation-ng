@@ -114,7 +114,7 @@ iso()
 	systemd-mount --fsck=no -o x-mount.mkdir,defaults /dev/disk/by-label/$CDVOLNAME /mnt/cdrom0
 	FILE=$BASE_MOUNT_PATH/cdrom0/"$squash_location"lib.squash
 	timeout=150
-	while ! /sbin/busybox.shared mountpoint $BASE_MOUNT_PATH/cdrom0 && [ $timeout -ne 0 ]; do
+	while ! /bin/busybox.shared mountpoint $BASE_MOUNT_PATH/cdrom0 && [ $timeout -ne 0 ]; do
 		sleep .1
 		let timeout-=1
 	done

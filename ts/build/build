@@ -1784,7 +1784,7 @@ filesystem_fixups()
 		fi
 	fi
 	echo -e "\tLinking BusyBox\n"
-	chroot ./tmp-tree /sbin/busybox.shared --install -s
+	chroot ./tmp-tree /bin/busybox.shared --install -s
 
 	if [ -e ./tmp-tree/lib64/libcrypto.so.1.1 ]; then
 		cp -a /usr/lib64/.libcrypto.so.1.1.hmac ./tmp-tree/lib64

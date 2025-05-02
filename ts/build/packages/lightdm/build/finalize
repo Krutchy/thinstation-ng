@@ -12,6 +12,7 @@ LDM_CONF=/etc/lightdm/lightdm-gtk-greeter.conf
 
 echo "theme-name = Adwaita"			>> $LDM_CONF
 if is_enabled $LIGHTDM_BANNER; then
+	sed -i -e '/^autologin/d' /etc/lightdm/lightdm.conf
 	cp /build/banner.svg /etc/banner.svg
 	sed -i -e '/^background/d'		$LDM_CONF
 	echo "background=/etc/banner.svg"	>> $LDM_CONF

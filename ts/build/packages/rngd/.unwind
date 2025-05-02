@@ -1,4 +1,6 @@
-#3a7df53fb0f51fde4f7acfc6d8428f93  .dna
+#f1d9c4d6854ce841cf85f6d1ded2dd36  .dna
 
+mkdir -p /ts/build/packages/rngd/bin
 mkdir -p /ts/build/packages/rngd/sbin
-ln /usr/sbin/rngd /ts/build/packages/rngd/sbin/rngd
+ln /usr/bin/rngd /ts/build/packages/rngd/bin/rngd
+ln -sf /bin/rngd /ts/build/packages/rngd/sbin/rngd

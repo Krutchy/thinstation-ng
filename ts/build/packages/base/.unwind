@@ -1,4 +1,4 @@
-#364afe2fafab4bfa5f9469646c240709  .dna
+#1d8f0c0789804d0335c1c8f84983a2bb  .dna
 
 mkdir -p /ts/build/packages/base/bin
 mkdir -p /ts/build/packages/base/etc
@@ -43,13 +43,24 @@ ln /etc/security/pwquality.conf /ts/build/packages/base/etc/security/pwquality.c
 ln /etc/security/sepermit.conf /ts/build/packages/base/etc/security/sepermit.conf
 ln /etc/security/time.conf /ts/build/packages/base/etc/security/time.conf
 ln /etc/shells /ts/build/packages/base/etc/shells
+ln /usr/bin/agetty /ts/build/packages/base/sbin/agetty
+ln /usr/bin/blkid /ts/build/packages/base/bin/blkid
+ln /usr/bin/getcap /ts/build/packages/base/sbin/getcap
 ln /usr/bin/getent /ts/build/packages/base/bin/getent
+ln /usr/bin/grpconv /ts/build/packages/base/sbin/grpconv
+ln /usr/bin/ldconfig /ts/build/packages/base/sbin/ldconfig
 ln /usr/bin/login /ts/build/packages/base/bin/login
+ln /usr/bin/lspci /ts/build/packages/base/sbin/lspci
 ln /usr/bin/mount /ts/build/packages/base/bin/mount
 ln /usr/bin/ps /ts/build/packages/base/bin/ps
+ln /usr/bin/pwconv /ts/build/packages/base/sbin/pwconv
+ln /usr/bin/setcap /ts/build/packages/base/sbin/setcap
+ln /usr/bin/swapon /ts/build/packages/base/bin/swapon
+ln /usr/bin/unix_chkpwd /ts/build/packages/base/bin/unix_chkpwd
+ln /usr/bin/unix_chkpwd /ts/build/packages/base/sbin/unix_chkpwd
 ln /usr/bin/vmtouch /ts/build/packages/base/bin/vmtouch
 ln /usr/lib64/ld-linux-x86-64.so.2 /ts/build/packages/base/lib64/ld-linux-x86-64.so.2
-ln /usr/lib64/libgcc_s-14-20250110.so.1 /ts/build/packages/base/lib64/libgcc_s.so.1
+ln /usr/lib64/libgcc_s-15-20250425.so.1 /ts/build/packages/base/lib64/libgcc_s.so.1
 ln /usr/lib64/security/pam_access.so /ts/build/packages/base/lib64/security/pam_access.so
 ln /usr/lib64/security/pam_deny.so /ts/build/packages/base/lib64/security/pam_deny.so
 ln /usr/lib64/security/pam_env.so /ts/build/packages/base/lib64/security/pam_env.so
@@ -75,16 +86,8 @@ ln /usr/lib64/security/pam_usertype.so /ts/build/packages/base/lib64/security/pa
 ln /usr/lib64/security/pam_warn.so /ts/build/packages/base/lib64/security/pam_warn.so
 ln /usr/lib64/security/pam_wheel.so /ts/build/packages/base/lib64/security/pam_wheel.so
 ln /usr/lib64/security/pam_xauth.so /ts/build/packages/base/lib64/security/pam_xauth.so
-ln /usr/sbin/agetty /ts/build/packages/base/sbin/agetty
-ln /usr/sbin/blkid /ts/build/packages/base/sbin/blkid
-ln /usr/sbin/getcap /ts/build/packages/base/sbin/getcap
-ln /usr/sbin/grpconv /ts/build/packages/base/sbin/grpconv
-ln /usr/sbin/ldconfig /ts/build/packages/base/sbin/ldconfig
-ln /usr/sbin/lspci /ts/build/packages/base/sbin/lspci
-ln /usr/sbin/pwconv /ts/build/packages/base/sbin/pwconv
-ln /usr/sbin/setcap /ts/build/packages/base/sbin/setcap
-ln /usr/sbin/swapon /ts/build/packages/base/sbin/swapon
-ln /usr/sbin/unix_chkpwd /ts/build/packages/base/sbin/unix_chkpwd
+ln -sf /bin/blkid /ts/build/packages/base/sbin/blkid
+ln -sf /bin/swapon /ts/build/packages/base/sbin/blkid
 ln -sf /etc/authselect/fingerprint-auth /ts/build/packages/base/etc/pam.d/fingerprint-auth
 ln -sf /etc/authselect/password-auth /ts/build/packages/base/etc/pam.d/password-auth
 ln -sf /etc/authselect/postlogin /ts/build/packages/base/etc/pam.d/postlogin

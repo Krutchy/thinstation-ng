@@ -3,4 +3,4 @@
 gettext-runtime,gettext,0,0,bin,1,,,,,,,,,
 shadow-utils,usermod,0,0,sbin,1,,,,,,,,,
 shadow-utils,userdel,0,0,sbin,1,,,,,,,,,
-shadow-utils,useradd,0,0,sbin,1,,,,,,,,,
+shadow-utils,useradd,0,0,bin,1,sbin/useradd,,,,,,,,

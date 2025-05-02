@@ -1,15 +1,16 @@
-#c0351f3e83321bdf28e82c31c2033aae  .dna
+#3f948927748528bca8f890fa7e4fe226  .dna
 
 mkdir -p /ts/build/packages/devstation/bin
 mkdir -p /ts/build/packages/devstation/sbin
 ln /usr/bin/chage /ts/build/packages/devstation/bin/chage
+ln /usr/bin/chgpasswd /ts/build/packages/devstation/sbin/chgpasswd
+ln /usr/bin/chpasswd /ts/build/packages/devstation/sbin/chpasswd
 ln /usr/bin/diff /ts/build/packages/devstation/bin/diff
 ln /usr/bin/find /ts/build/packages/devstation/bin/find
-ln /usr/sbin/chgpasswd /ts/build/packages/devstation/sbin/chgpasswd
-ln /usr/sbin/chpasswd /ts/build/packages/devstation/sbin/chpasswd
-ln /usr/sbin/groupadd /ts/build/packages/devstation/sbin/groupadd
-ln /usr/sbin/groupdel /ts/build/packages/devstation/sbin/groupdel
-ln /usr/sbin/groupmod /ts/build/packages/devstation/sbin/groupmod
-ln /usr/sbin/useradd /ts/build/packages/devstation/sbin/useradd
-ln /usr/sbin/userdel /ts/build/packages/devstation/sbin/userdel
-ln /usr/sbin/usermod /ts/build/packages/devstation/sbin/usermod
+ln /usr/bin/groupadd /ts/build/packages/devstation/sbin/groupadd
+ln /usr/bin/groupdel /ts/build/packages/devstation/sbin/groupdel
+ln /usr/bin/groupmod /ts/build/packages/devstation/sbin/groupmod
+ln /usr/bin/useradd /ts/build/packages/devstation/bin/useradd
+ln /usr/bin/userdel /ts/build/packages/devstation/sbin/userdel
+ln /usr/bin/usermod /ts/build/packages/devstation/sbin/usermod
+ln -sf /bin/useradd /ts/build/packages/devstation/sbin/useradd

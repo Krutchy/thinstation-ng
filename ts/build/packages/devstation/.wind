@@ -1,11 +1,12 @@
-#c0351f3e83321bdf28e82c31c2033aae  .dna
+#3f948927748528bca8f890fa7e4fe226  .dna
 rm /ts/build/packages/devstation/bin/diff
 rm /ts/build/packages/devstation/bin/find
 rm /ts/build/packages/devstation/bin/chage
 rm /ts/build/packages/devstation/sbin/chpasswd
 rm /ts/build/packages/devstation/sbin/groupmod
 rm /ts/build/packages/devstation/sbin/usermod
-rm /ts/build/packages/devstation/sbin/useradd
+rm /ts/build/packages/devstation/bin/useradd
+rm -f /ts/build/packages/devstation/sbin/useradd
 rm /ts/build/packages/devstation/sbin/groupadd
 rm /ts/build/packages/devstation/sbin/userdel
 rm /ts/build/packages/devstation/sbin/groupdel
