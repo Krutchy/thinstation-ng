@@ -23,9 +23,8 @@ if is_enabled ${ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED} || [ -n "$
 	if [ $((ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL)) -gt 0 ]; then
 		logger --stderr --tag $LOGGERTAG "Adding ica_receiver_clear_credentials.sh with $((ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL)) minutes interval to crontab."
 
-		if ! crontab -l | grep -q 'ic2a_receiver_clear_credentials.sh'; then
-			echo "*/$((ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL)) * * * * /bin/ica_receiver_clear_credentials.sh" >> /tmp/crontab
-			crontab /tmp/crontab
+		if ! crontab -l | grep -q 'ica_receiver_clear_credentials.sh'; then
+			(crontab -l || true; echo "*/$((ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL)) * * * * /bin/ica_receiver_clear_credentials.sh")| crontab -
 		fi
 	else
 		logger --stderr --tag $LOGGERTAG "ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL is 0 although ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED and/or ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS are defined. No job and will not be added to crontab!"
