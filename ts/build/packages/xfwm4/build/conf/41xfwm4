@@ -28,6 +28,7 @@
 # DESKTOP_SHOWREMOVEABLE=false     hide/display Removeable Icon on XFWM Desktop
 # DESKTOP_SHOWFILESYSTEM=false     hide/display Filesystems Icon on XFWM Desktop
 # DESKTOP_SHOWUNKNOWN=false	       hide/display Unknown Device Icons on XFWM Desktop
+# DESKTOP_SINGLECLICK=false        enable/disable Single click app start on XFWM Desktop
 # MENU_SHOWCLOCK=false			   hide/display Clock on XFWM's Start Menu
 # MENU_SHOWABOUT=false			   hide/display About on XFWM's Start Menu
 # MENU_SHOWLOGOUT=false			   hide/display Logout on XFWM's Start Menu

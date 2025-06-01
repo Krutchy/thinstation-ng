@@ -1,2 +1,2 @@
 <!DOCTYPE NXClientSettings>
-<NXClientSettings application="nxclient" version="1.3" >
+<NXClientSettings version="2.2" application="nxclient" >

@@ -54,6 +54,10 @@ init)
 	fi
 
 	let x=0
+
+	NXHOSTSCRT=$HOME/.nx/config/hosts.crt
+	rm $NXHOSTSCRT
+
 	while [ -n "`eval echo '$SESSION_'$x'_TYPE'`" ] ; do
 	  NXTYPE=`eval echo '$SESSION_'$x'_TYPE'`
 	  if [ "`make_caps $NXTYPE`" = "NX" ] ; then
@@ -65,7 +69,7 @@ init)
 
 	    (set | grep "SESSION_"$x"_NX_" ) |
 	    while read session; do
-              # Reworked below line to allow multiline NX options, ie ssh keys
+		  # Reworked below line to allow multiline NX options, ie ssh keys
 	      nxvalue=`echo $session | cut -f1 -d"="`
 	      eval nxvalue=\$$nxvalue
 	      line=`echo $session | cut -f1 -d"="`
@@ -73,10 +77,14 @@ init)
 
 	      # Work around for groups which are > than 1 word long
 	      case $nxgroup in
-		      VNC|WINDOWS|SHARE)
+			VNC|WINDOWS|SHARE)
 	      		nxgroup=`echo $line | cut -f4-5 -d"_"`
-			linestart=6
-		      ;;
+				linestart=6
+		      	;;
+			HOSTSCRT)
+			  	echo -e "$nxvalue" >> $NXHOSTSCRT
+			  	continue
+				;;
 		      *)
 			linestart=5
 		      ;;

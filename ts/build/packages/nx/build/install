@@ -2,3 +2,5 @@
 export PACKAGE=nx
 export RPM=`basename $1`
 repackage -e
+
+cp -av /usr/NX $TSWRKNG/packages/nx/lib64/NX/

@@ -1,7 +1,7 @@
 [Unit]
 Description=ThinStation Crontab Initialize
 Before=crond.service
-After=tsinit.target
+After=tsinit.target network-files.service
 
 [Service]
 Type=oneshot
