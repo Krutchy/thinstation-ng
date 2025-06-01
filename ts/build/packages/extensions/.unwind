@@ -1,4 +1,4 @@
-#3362cab33a85ceaca4bb586debdd4910  .dna
+#a30b52ded7c3824bd67830cc30466058  .dna
 
 mkdir -p /ts/build/packages/extensions/bin
 mkdir -p /ts/build/packages/extensions/lib64/terminfo/a
@@ -7,19 +7,18 @@ mkdir -p /ts/build/packages/extensions/lib64/terminfo/l
 mkdir -p /ts/build/packages/extensions/lib64/terminfo/v
 ln /bin/setserial /ts/build/packages/extensions/bin/setserial
 ln /usr/bin/bzip2 /ts/build/packages/extensions/bin/bzip2
-ln /usr/bin/find /ts/build/packages/extensions/bin/find
+ln /usr/bin/chroot /ts/build/packages/extensions/bin/chroot
 ln /usr/bin/grep /ts/build/packages/extensions/bin/grep
 ln /usr/bin/gzip /ts/build/packages/extensions/bin/gzip
+ln /usr/bin/ifconfig /ts/build/packages/extensions/bin/ifconfig
+ln /usr/bin/ldconfig /ts/build/packages/extensions/bin/ldconfig
 ln /usr/bin/ldd /ts/build/packages/extensions/bin/ldd
 ln /usr/bin/lsusb /ts/build/packages/extensions/bin/lsusb
 ln /usr/bin/nano /ts/build/packages/extensions/bin/nano
+ln /usr/bin/setpci /ts/build/packages/extensions/bin/setpci
 ln /usr/bin/strace /ts/build/packages/extensions/bin/strace
 ln /usr/bin/umount /ts/build/packages/extensions/bin/umount
 ln /usr/bin/usb-devices /ts/build/packages/extensions/bin/usb-devices
-ln /usr/sbin/chroot /ts/build/packages/extensions/bin/chroot
-ln /usr/sbin/ifconfig /ts/build/packages/extensions/bin/ifconfig
-ln /usr/sbin/ldconfig /ts/build/packages/extensions/bin/ldconfig
-ln /usr/sbin/setpci /ts/build/packages/extensions/bin/setpci
 ln /usr/share/terminfo/a/ansi /ts/build/packages/extensions/lib64/terminfo/a/ansi
 ln /usr/share/terminfo/d/dumb /ts/build/packages/extensions/lib64/terminfo/d/dumb
 ln /usr/share/terminfo/l/linux /ts/build/packages/extensions/lib64/terminfo/l/linux

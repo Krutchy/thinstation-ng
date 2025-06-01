@@ -1820,7 +1820,7 @@ filesystem_fixups()
 			echo -e "\tCompressing Modules"
 			export -f compress_module
 			export ts_modcmd
-			find ./tmp-tree/lib64/modules -name \*.ko.xz | \
+			find ./tmp-tree/lib64/modules -name \*.ko | \
 			 xargs -P $procs -I {} bash -c 'compress_module "$@"' _ {}
 		fi
 		depmod -b ./tmp-tree $KERNVER 2>/dev/null

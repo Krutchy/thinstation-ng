@@ -1,4 +1,4 @@
-#3362cab33a85ceaca4bb586debdd4910  .dna
+#a30b52ded7c3824bd67830cc30466058  .dna
 rm /ts/build/packages/extensions/lib64/terminfo/l/linux
 rm /ts/build/packages/extensions/lib64/terminfo/v/vt220
 rm /ts/build/packages/extensions/lib64/terminfo/v/vt100
@@ -13,7 +13,6 @@ rm /ts/build/packages/extensions/bin/lsusb
 rm /ts/build/packages/extensions/bin/setpci
 rm /ts/build/packages/extensions/bin/grep
 rm /ts/build/packages/extensions/bin/strace
-rm /ts/build/packages/extensions/bin/find
 rm /ts/build/packages/extensions/bin/ldd
 rm /ts/build/packages/extensions/bin/ldconfig
 rm /ts/build/packages/extensions/bin/nano

@@ -1,4 +1,4 @@
-#3f948927748528bca8f890fa7e4fe226  .dna
+#c51affcab9457a71d0ac1583a3271262  .dna
 
 mkdir -p /ts/build/packages/devstation/bin
 mkdir -p /ts/build/packages/devstation/sbin
@@ -6,7 +6,6 @@ ln /usr/bin/chage /ts/build/packages/devstation/bin/chage
 ln /usr/bin/chgpasswd /ts/build/packages/devstation/sbin/chgpasswd
 ln /usr/bin/chpasswd /ts/build/packages/devstation/sbin/chpasswd
 ln /usr/bin/diff /ts/build/packages/devstation/bin/diff
-ln /usr/bin/find /ts/build/packages/devstation/bin/find
 ln /usr/bin/groupadd /ts/build/packages/devstation/sbin/groupadd
 ln /usr/bin/groupdel /ts/build/packages/devstation/sbin/groupdel
 ln /usr/bin/groupmod /ts/build/packages/devstation/sbin/groupmod

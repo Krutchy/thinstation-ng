@@ -1,3 +1,6 @@
+udhcpc
+sleep
+route
 agetty
 alsactl
 auditctl

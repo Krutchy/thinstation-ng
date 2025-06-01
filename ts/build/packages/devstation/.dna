@@ -1,7 +1,6 @@
 ,devcmd,0,0,bin,0,,,,,,,,,
 ,dnsmasq_gui,0,0,bin,0,,,,,,,,,
 diffutils,diff,0,0,bin,1,,,,,,,,,
-findutils,find,0,0,bin,1,,,,,,,,,
 shadow-utils,chage,0,0,bin,1,,,,,,,,,
 ,Bookmarks,0,0,etc/chrome/Default,0,,,,,,,,,
 ,Favicons,0,0,etc/chrome/Default,0,,,,,,,,,

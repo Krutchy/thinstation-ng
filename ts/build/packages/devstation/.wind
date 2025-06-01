@@ -1,6 +1,5 @@
-#3f948927748528bca8f890fa7e4fe226  .dna
+#c51affcab9457a71d0ac1583a3271262  .dna
 rm /ts/build/packages/devstation/bin/diff
-rm /ts/build/packages/devstation/bin/find
 rm /ts/build/packages/devstation/bin/chage
 rm /ts/build/packages/devstation/sbin/chpasswd
 rm /ts/build/packages/devstation/sbin/groupmod
