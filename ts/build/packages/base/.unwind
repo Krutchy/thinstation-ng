@@ -49,7 +49,7 @@ ln /usr/bin/mount /ts/build/packages/base/bin/mount
 ln /usr/bin/ps /ts/build/packages/base/bin/ps
 ln /usr/bin/vmtouch /ts/build/packages/base/bin/vmtouch
 ln /usr/lib64/ld-linux-x86-64.so.2 /ts/build/packages/base/lib64/ld-linux-x86-64.so.2
-ln /usr/lib64/libgcc_s-14-20250110.so.1 /ts/build/packages/base/lib64/libgcc_s.so.1
+ln /usr/lib64/libgcc_s-14-20250523.so.1 /ts/build/packages/base/lib64/libgcc_s.so.1
 ln /usr/lib64/security/pam_access.so /ts/build/packages/base/lib64/security/pam_access.so
 ln /usr/lib64/security/pam_deny.so /ts/build/packages/base/lib64/security/pam_deny.so
 ln /usr/lib64/security/pam_env.so /ts/build/packages/base/lib64/security/pam_env.so
