@@ -69,7 +69,8 @@ jobs:
   deploy:
     needs: build-rpm
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+#    if: startsWith(github.ref, 'refs/tags/') || github.event_name == 'workflow_dispatch'
+     if: always()
     permissions:
       pages: write
       id-token: write
