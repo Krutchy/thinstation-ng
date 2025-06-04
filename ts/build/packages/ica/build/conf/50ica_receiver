@@ -32,14 +32,17 @@
 #                                                              Otherwise: if the user logs on to the Receiver and launches a session, and leaves or disconnects
 #                                                              the session, his/hers credentials are still logged on to the Receiver and anyone could simple start (logon)
 #
-#ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS             Same as ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED, but instead of
+#ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_STORE_CLOSED              true or false, similar to ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED 
+#                                                              If true, the users credentials are cleard afther he/she closes the ICASTORE.
+#
+#ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS             Numeric value, similar to ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED, but instead of
 #                                                              clearing the session directly after the first session starts, the credentials are cleard
-#                                                              X minutes (ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL) after the last session has ended.
+#                                                              X minutes (ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS) after the last session has ended.
 #                                                              This makes it easier for the user since he/she can then close sessions and easily start them
 #                                                              again directly (within the time timeout limit) without having to logon.
 #
-#ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL                  Numeric value, default if not defined is 5. The check interval (timeout) used
-#                                                              by ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED and ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS
+#ICA_RECEIVER_CLEAR_CREDENTIALS_CHECK_INTERVAL                 Numeric value, check interval (timeout) used by ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_STORE_CLOSED, ICA_RECEIVER_CLEAR_CREDENTIALS_WHEN_SESSION_LAUNCHED
+#                                                              and ICA_RECEIVER_CLEAR_CREDENTIALS_AFTER_SESSION_ENDS
 #
 #
 #Examples of configuration for Citrix Receiver:
