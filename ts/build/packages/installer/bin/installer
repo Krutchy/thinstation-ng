@@ -353,7 +353,7 @@ disk_select()
 
 install_it()
 {
-	$XTERM_CMD -T "Installing" $ARG script -c "/bin/install.sh $disk" -e /var/log//install.log
+	$XTERM_CMD -T "Installing" $ARG script -c "/bin/install.sh $disk" /var/log/install.log
 }
 
 proxy_check()
