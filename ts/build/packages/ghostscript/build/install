@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export PACKAGE=ghostscript
-export PORTS="libgs ghostscript ghostscript-tools-fonts ghostscript-tools-printing adobe-mappings-cmap"
+export PORTS="libgs ghostscript ghostscript-tools-fontutils ghostscript-tools-printing adobe-mappings-cmap"
 #export DROP_FILES="gsc gsx libgs.so* gpcl6 gxps"
 #xexport DROP_DIRS="lib/ghostscript/fonts"
 repackage -e
