@@ -36,3 +36,4 @@ if [ "$files" -eq 0 ] ; then
     fi
 fi
 /usr/lib/systemd/systemd-update-helper install-system-units auditd.service
+sed -i -e 's|/sbin/auditctl|/bin/auditctl|g' /bin/augenrules

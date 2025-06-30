@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export PACKAGE="libblockdev"
-export PORTS="libblockdev libblockdev-crypto libblockdev-fs libblockdev-loop libblockdev-nvme libblockdev-part libblockdev-swap libblockdev-utils libblockdev-mdraid libblockdev-mpath"
+export PORTS="libblockdev libblockdev-crypto libblockdev-fs libblockdev-loop libblockdev-nvme libblockdev-part libblockdev-swap libblockdev-utils libblockdev-mdraid libblockdev-mpath libblockdev-smart"
 export DROP_FILES=""
 export DROP_DIRS=""
 export CREATE_EMPTY_DIRS=""

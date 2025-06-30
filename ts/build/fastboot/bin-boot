@@ -60,6 +60,7 @@ lsmod
 lspci
 lvm
 mkdir
+mktemp
 modprobe
 mount
 mountpoint
@@ -77,6 +78,7 @@ plymouthd
 readlink
 resolvconf.openresolv
 resolvectl
+rm
 sed
 session
 setcap
@@ -88,6 +90,7 @@ sort
 splash_util
 strace
 su
+sulogin
 swapon
 systemctl
 systemd-ask-password
@@ -100,6 +103,7 @@ systemd-tmpfiles
 systemd-tty-ask-password-agent
 tail
 tftp
+touch
 tr
 tty
 udevadm
