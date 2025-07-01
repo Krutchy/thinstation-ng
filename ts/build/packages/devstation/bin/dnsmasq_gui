@@ -44,7 +44,7 @@ x_echo()
 			<hseparator></hseparator>
 			<hbox>
 				<button has-focus="true">
-					<label>"Next"</label>
+					<label>"Exit"</label>
 					<action>EXIT:ok</action>
 				</button>
 			</hbox>
