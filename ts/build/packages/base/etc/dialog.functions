@@ -416,7 +416,7 @@ x_error()
 		<hbox>
 			<button has-focus="false" can-focus="false">
 				<label>"Exit"</label>
-					<action>EXIT:ok</action>
+				<action>EXIT:ok</action>
 			</button>
 		</hbox>
 	</vbox>
