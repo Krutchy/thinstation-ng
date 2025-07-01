@@ -210,7 +210,7 @@ xfconf_settings()
 		xfconf-query -c xfce4-panel -p /plugins/plugin-1/button-icon -t string -s $XFWM4_START_ICON -n
 	fi
 	if [ -n "$XFWM4_START_TITLE" ]; then
-		xfconf-query -c xfce4-panel -p /plugins/plugin-1/button-title -t string -s $XFWM4_START_TITLE -n
+		xfconf-query -c xfce4-panel -p /plugins/plugin-1/button-title -t string -s "$XFWM4_START_TITLE" -n
 	fi
 	
 	if [ -n "$XFWM4_CLOCK_FORMAT" ]; then
