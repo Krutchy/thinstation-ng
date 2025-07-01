@@ -1,4 +1,4 @@
-#3850abf3241c9770481f750e74898971  .dna
+#94db193ad7a2f9f39c64e46bb8fb07e6  .dna
 rm /ts/build/packages/base/bin/vmtouch
 rm /ts/build/packages/base/bin/ps
 rm /ts/build/packages/base/bin/getent
@@ -51,7 +51,7 @@ rm /ts/build/packages/base/sbin/agetty
 rm /ts/build/packages/base/bin/blkid
 rm -f /ts/build/packages/base/sbin/blkid
 rm /ts/build/packages/base/bin/swapon
-rm -f /ts/build/packages/base/sbin/blkid
+rm -f /ts/build/packages/base/sbin/swapon
 rm /ts/build/packages/base/bin/login
 rm /ts/build/packages/base/lib64/security/pam_pwquality.so
 rm /ts/build/packages/base/bin/unix_chkpwd

@@ -1,4 +1,4 @@
-#3850abf3241c9770481f750e74898971  .dna
+#94db193ad7a2f9f39c64e46bb8fb07e6  .dna
 
 mkdir -p /ts/build/packages/base/bin
 mkdir -p /ts/build/packages/base/etc
@@ -88,7 +88,7 @@ ln /usr/lib64/security/pam_warn.so /ts/build/packages/base/lib64/security/pam_wa
 ln /usr/lib64/security/pam_wheel.so /ts/build/packages/base/lib64/security/pam_wheel.so
 ln /usr/lib64/security/pam_xauth.so /ts/build/packages/base/lib64/security/pam_xauth.so
 ln -sf /bin/blkid /ts/build/packages/base/sbin/blkid
-ln -sf /bin/swapon /ts/build/packages/base/sbin/blkid
+ln -sf /bin/swapon /ts/build/packages/base/sbin/swapon
 ln -sf /etc/authselect/fingerprint-auth /ts/build/packages/base/etc/pam.d/fingerprint-auth
 ln -sf /etc/authselect/password-auth /ts/build/packages/base/etc/pam.d/password-auth
 ln -sf /etc/authselect/postlogin /ts/build/packages/base/etc/pam.d/postlogin
