@@ -39,6 +39,7 @@ getty
 grep
 groupmod
 gzip
+hostname
 hostnamectl
 id
 ifconfig
@@ -73,6 +74,7 @@ nft
 nm-online
 openvt
 pkg
+pidof
 plymouth
 plymouthd
 readlink

@@ -70,7 +70,7 @@ EOF
 		if [ -n "$FFHP" ] ; then
 			FF_HOMEPAGE=$FFHP
 		fi
-		cp /etc/TS.default/prefs.tpl $FFPREFS
+#		cp /etc/TS.default/prefs.tpl $FFPREFS
 		echo 'user_pref("browser.startup.homepage", "'$FF_HOMEPAGE'");' >>$FFPREFS
 		if [ -e /etc/TS.default/places.sqlite ] ; then
 			echo 'user_pref("browser.toolbars.bookmarks.visibility", "always");' >>$FFPREFS
