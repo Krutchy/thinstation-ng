@@ -57,7 +57,7 @@ The **DevStation** image is installed through the DevStation **Installer**, whic
 
 #### Steps to Use the DevStation Installer:
 
-1. Download the DevStation Installer from the ThinStation [Website](https://www.thinstation.org/TS-7.0.0-Installer-0101.iso)
+1. Download the DevStation Installer from the ThinStation [Website](https://www.thinstation.org/TS-7.2.0-Installer-0630.iso)
 2. Boot the installer on your system.
 3. Follow the prompts to:
     - Collect credentials.
