@@ -109,11 +109,13 @@ pxe()
 iso()
 {
 	timeout=150
-	while [ ! -e /dev/disk/by-label/$CDVOLNAME ] && [ "$timeout" -ne "0" ]; do
-		sleep .1
-		let timeout-=1
-	done
-	systemd-mount --fsck=no -o x-mount.mkdir,defaults /dev/disk/by-label/$CDVOLNAME /mnt/cdrom0
+        if ! mountpoint /mnt/cdrom0; then
+		while [ ! -e /dev/disk/by-label/$CDVOLNAME ] && [ "$timeout" -ne "0" ]; do
+			sleep .1
+			let timeout-=1
+		done
+		systemd-mount --fsck=no -o x-mount.mkdir,defaults /dev/disk/by-label/$CDVOLNAME /mnt/cdrom0
+	fi
 	FILE=$BASE_MOUNT_PATH/cdrom0/"$squash_location"lib.squash
 	timeout=150
 	while ! /bin/busybox.shared mountpoint $BASE_MOUNT_PATH/cdrom0 && [ $timeout -ne 0 ]; do
