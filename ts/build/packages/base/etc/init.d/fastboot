@@ -2,10 +2,10 @@
 
 . `dirname $0`/common
 
-#if [ -n "$DEBUG_BOOT" ]; then
+if [ -n "$DEBUG_BOOT" ]; then
 	set -x
 	exec </dev/null >/var/log/fastboot.log  2>&1
-#fi
+fi
 
 search()
 {
@@ -56,11 +56,13 @@ disk() {
 	fi
     fi
 
-    systemd-mount --fsck=no -o "x-mount.mkdir,defaults" /dev/disk/by-label/$HDVOLNAME /boot
+    if ! mountpoint /boot; then
+	    systemd-mount --fsck=no -o "x-mount.mkdir,defaults" /dev/disk/by-label/$HDVOLNAME /boot
+    fi
     FILE=/boot/"$squash_location"$lib_file
     UPDATE=/boot/"$squash_location"lib.update
     local timeout=15
-    while [ "$BOOTABLE" != "TRUE" ] && [ "$timeout" -ne "0" ]; do 
+    while [ "$BOOTABLE" != "TRUE" ] && [ "$timeout" -ne "0" ]; do
         if search "$FILE" || search "$UPDATE" ; then
             BOOTABLE=TRUE
         else
