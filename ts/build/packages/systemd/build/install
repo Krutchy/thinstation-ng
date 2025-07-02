@@ -1,7 +1,7 @@
 #!/bin/sh
 
 export PACKAGE=systemd
-export PORTS="systemd systemd-sysusers systemd-libs systemd-pam systemd-resolved systemd-udev"
+export PORTS="systemd systemd-sysusers systemd-libs systemd-pam systemd-resolved systemd-udev wireless-regdb"
 export DROP_FILES="	etc.conf \
 			systemd-growfs \
 			systemd-makefs \
