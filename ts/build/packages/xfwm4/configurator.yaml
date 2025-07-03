@@ -1,0 +1,229 @@
+package:
+  name: "xfwm4"
+  category: "Window Managers"
+  priority: 50
+  visible: true
+  dependencies:
+    - "xorg"
+
+
+variables:
+  - name: "XFWM4_COMPOSITING"
+    description: "Enable or disable desktop compositing."
+    type: "boolean"
+    default: true
+
+
+  - name: "XFWM4_BRIGHTNESS"
+    description: "Background brightness level."
+    type: "range"
+    min: -128
+    max: 127
+    default: -33
+
+
+  - name: "XFWM4_SATURATION"
+    description: "Background color saturation level."
+    type: "range"
+    min: -10.0
+    max: 10.0
+    default: 1.0
+
+
+  - name: "XFWM4_RED"
+    description: "Red color index for background color."
+    type: "range"
+    min: 0
+    max: 255
+    default: 0
+
+
+  - name: "XFWM4_BLUE"
+    description: "Blue color index for background color."
+    type: "range"
+    min: 0
+    max: 255
+    default: 0
+
+
+  - name: "XFWM4_GREEN"
+    description: "Green color index for background color."
+    type: "range"
+    min: 0
+    max: 255
+    default: 0
+
+
+  - name: "XFWM4_THEME"
+    description: "Window border and color theme. Default or ALL to include all."
+    type: "text"
+    default: "Xfce"
+
+
+  - name: "DESKTOP_ICON_SIZE"
+    description: "Size of icons on the desktop."
+    type: "range"
+    min: 1
+    max: 256
+    default: 38
+
+
+  - name: "DESKTOP_FONT_SIZE"
+    description: "Font size for desktop icons."
+    type: "range"
+    min: 1
+    max: 72
+    default: 8
+
+
+  - name: "DESKTOP_SHOWTRASH"
+    description: "Display Trash Icon on desktop."
+    type: "boolean"
+    default: false
+
+
+  - name: "DESKTOP_SHOWHOME"
+    description: "Display Home Icon on desktop."
+    type: "boolean"
+    default: false
+
+
+  - name: "DESKTOP_SHOWREMOVEABLE"
+    description: "Display Removable Device Icons on desktop."
+    type: "boolean"
+    default: false
+
+
+  - name: "DESKTOP_SHOWFILESYSTEM"
+    description: "Display Filesystem Icons on desktop."
+    type: "boolean"
+    default: false
+
+
+  - name: "DESKTOP_SHOWUNKNOWN"
+    description: "Display Unknown Device Icons on desktop."
+    type: "boolean"
+    default: false
+
+
+  - name: "MENU_SHOWCLOCK"
+    description: "Display Clock in start menu."
+    type: "boolean"
+    default: false
+
+
+  - name: "MENU_SHOWABOUT"
+    description: "Display About item in start menu."
+    type: "boolean"
+    default: false
+
+
+  - name: "MENU_SHOWLOGOUT"
+    description: "Display Logout item in start menu."
+    type: "boolean"
+    default: false
+
+
+  - name: "MENU_SHOWSETTINGS"
+    description: "Display Settings item in start menu."
+    type: "boolean"
+    default: false
+
+
+  - name: "SCREEN_BLANK_TIME"
+    description: "Minutes before screen blanks."
+    type: "range"
+    min: 0
+    max: 120
+    default: 5
+
+
+  - name: "SCREEN_SUSPEND_TIME"
+    description: "Minutes before screen suspends."
+    type: "range"
+    min: 0
+    max: 120
+    default: 10
+
+
+  - name: "SCREEN_OFF_TIME"
+    description: "Minutes before screen turns off."
+    type: "range"
+    min: 0
+    max: 120
+    default: 15
+
+
+  - name: "PANEL_AUTOHIDE"
+    description: "Automatically hide the panel behind windows."
+    type: "boolean"
+    default: false
+
+
+  - name: "PANEL_PAGER"
+    description: "Display the workspace switcher pager."
+    type: "boolean"
+    default: false
+
+
+  - name: "PANEL_REV_CLOCKSYSTRAY"
+    description: "Reverse systray and clock positions."
+    type: "boolean"
+    default: false
+
+
+  - name: "PANEL_USER"
+    description: "Display logged in user name on the panel."
+    type: "boolean"
+    default: false
+
+
+  - name: "UDISKS_AUTOMOUNT"
+    description: "Automatically mount removable media."
+    type: "boolean"
+    default: true
+
+
+  - name: "XFWM4_START_POSITION"
+    description: "Startbar position on the screen."
+    type: "list"
+    options:
+      - "TOP"
+      - "BOTTOM"
+    default: "BOTTOM"
+
+
+  - name: "XFWM4_START_TITLE"
+    description: "Text displayed on the start button."
+    type: "text"
+    default: "Start"
+
+
+  - name: "XFWM4_START_ICON"
+    description: "Icon displayed on the start button."
+    type: "text"
+    default: "freerdp"
+
+
+  - name: "XFWM4_START_DISABLE_SUSPEND"
+    description: "Hide/display Suspend button under Session on start menu."
+    type: "boolean"
+    default: false
+
+
+  - name: "XFWM4_SHOW_SUSPEND"
+    description: "Show suspend option elsewhere (redundant backup)."
+    type: "boolean"
+    default: false
+
+
+  - name: "XFWM4_KIOSK"
+    description: "Restrict interface for kiosk mode."
+    type: "boolean"
+    default: true
+
+
+  - name: "XFWM4_CLOCK_FORMAT"
+    description: "Format string for displaying time in the clock."
+    type: "text"
+    default: "%H:%M"
