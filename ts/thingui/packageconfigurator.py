@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtCore import Qt
 
+# Filepaths for Read/Write
 PACKAGE_DIR = "../build/packages"
 OUTPUT_DIR = "Output"
 CONFIGURATOR_FILENAME = 'configurator.yaml'
@@ -23,13 +24,14 @@ class PackageWidget(QGroupBox):
         self.option_inputs = {}
 
         self.build_ui()
-
+    
     def build_ui(self):
         layout = QVBoxLayout()
         header = QHBoxLayout()
         header.addWidget(self.selected)
         toggle_btn = QPushButton("▼") # Button for opening/closing package options
         toggle_btn.setFixedWidth(30)
+        toggle_btn.setCheckable(True)  # Allows toggling
         header.addStretch()
         header.addWidget(toggle_btn)
         layout.addLayout(header)
@@ -37,7 +39,13 @@ class PackageWidget(QGroupBox):
         self.options_frame.setVisible(False)
         layout.addWidget(self.options_frame)
 
-        toggle_btn.clicked.connect(lambda: self.options_frame.setVisible(not self.options_frame.isVisible()))
+        # Flips arrow for options toggle on click
+        def toggle():
+            expanded = toggle_btn.isChecked()
+            self.options_frame.setVisible(expanded)
+            toggle_btn.setText("▲" if expanded else "▼")
+        toggle_btn.clicked.connect(toggle)
+
         self.setLayout(layout)
 
         # For each option in a given package:
@@ -66,7 +74,7 @@ class PackageWidget(QGroupBox):
                     index = input_widget.findText(var['default'])
                     if index >= 0:
                         input_widget.setCurrentIndex(index)
-            else: # Textbox for input (default)
+            else: # Textbox (default)
                 input_widget = QLineEdit()
                 input_widget.setText(str(var.get('default', '')))
 
