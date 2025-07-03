@@ -25,6 +25,11 @@ QPushButton:hover {
 QPushButton:pressed {
     background-color: #3e8e41;
 }
+QPushButton:disabled {
+    color: gray;
+    background-color: #dddddd;
+    border: 1px solid #cccccc;
+}
 
 /* QCheckBox */
 QCheckBox {
