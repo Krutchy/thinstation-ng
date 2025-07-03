@@ -179,6 +179,11 @@ class PackageApp(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
+    
+    # Loads formatting as per QSS (similar to CSS)
+    with open("style.qss", "r") as f:
+        app.setStyleSheet(f.read())
+        
     window = PackageApp()
     window.show()
     sys.exit(app.exec_())

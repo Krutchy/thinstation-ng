@@ -1,0 +1,71 @@
+/* QLabel: Category headers and descriptions */
+QLabel#category {
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+QLabel {
+    font-size: 12px;
+}
+
+/* QPushButton: Toggle and Submit */
+QPushButton {
+    background-color: #4CAF50; /* Green */
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+QPushButton:hover {
+    background-color: #45a049;
+}
+QPushButton:pressed {
+    background-color: #3e8e41;
+}
+
+/* QCheckBox */
+QCheckBox {
+    font-size: 12px;
+}
+
+/* QComboBox */
+QComboBox {
+    padding: 4px;
+    font-size: 12px;
+}
+
+/* QLineEdit */
+QLineEdit {
+    padding: 4px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* QSpinBox and QDoubleSpinBox */
+QSpinBox, QDoubleSpinBox {
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+/* QGroupBox: Package box */
+QGroupBox {
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    left: 10px;
+    padding: 0 3px;
+    font-weight: bold;
+}
+
+/* Scroll area: ensure padding inside the scroll content */
+QScrollArea QWidget {
+    padding: 6px;
+}
