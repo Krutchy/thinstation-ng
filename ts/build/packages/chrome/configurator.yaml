@@ -1,0 +1,38 @@
+package:
+  name: "chrome"
+  category: "Browsers"
+  priority: 50
+  has-sessions: true
+  visible: true
+  dependencies:
+    - "base"
+    - "pango"
+    - "alsa"
+    - "dbus"
+    - "gtk-3.0"
+    - "nss"
+    - "bash"
+    - "ca-certificates"
+    - "jq"
+    - "nss-softokn"
+    - "p11-kit"
+    - "vulkan"
+
+
+variables:
+  - name: "SESSION_#_TYPE"
+    description: "Set session type."
+    type: "text"
+    default: "chrome"
+
+
+  - name: "SESSION_#_CHROME_HOMEPAGE"
+    description: "Set homepage session will open on."
+    type: "text"
+    default: "http://thinstation.org"
+
+
+  - name: "NETWORK_REQUIRED"
+    description: "Require network connection?"
+    type: "boolean"
+    default: true
