@@ -344,7 +344,7 @@ disk_select()
 			exit 1
 		fi
 	else
-		x_error "No usable disk!" "The DevStation environment requirees a disk of at least $(min_disk_size)GB in size."
+		x_error "No usable disk!" "The DevStation environment requirees a disk of at least ${min_disk_size}GB in size."
 		exit 1
 	fi
 
