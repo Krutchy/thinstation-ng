@@ -1,0 +1,15 @@
+[Unit]
+Description=ThinStation Local Install init
+After=profile-setup.service
+ConditionPathIsReadWrite=/etc
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+EnvironmentFile=/etc/thinstation.env
+ExecStart=/etc/init.d/local-install-init
+SyslogIdentifier=thinstation
+
+[Install]
+WantedBy=tsinit.target
+
