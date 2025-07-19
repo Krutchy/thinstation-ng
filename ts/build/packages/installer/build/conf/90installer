@@ -1,0 +1,4 @@
+#INSTALLER_WEB_ADDRESS="https://www.thinstation.net"   # The base url of an archive to download and place on the boot partition
+#INSTALLER_ARCHIVE_NAME="thindev-default-$TS_VERSION.tar.xz"   # The name of the actual archive
+#INSTALLER_DEV=on    # Enable or Disable some additional menus and partitions for DevStation
+#INSTALLER_REBOOT_MESSAGE_BOX="Please remove the CD and click <b>Next</b> to reboot."   # Contents of the final reboot message

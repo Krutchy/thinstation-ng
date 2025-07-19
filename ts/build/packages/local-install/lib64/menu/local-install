@@ -1,0 +1,3 @@
+package="local-install"; needs="local-install"; title="Install"; command="${XTERM_CMD} --hold --title 'Install ThinStation' --execute local-install.sh install"; menu="Configuration::Installer"; nodesktop="true"; icon="Installer"; metric=1
+package="local-install"; needs="local-install"; title="Update"; command="${XTERM_CMD} --hold --title 'Update ThinStation' --execute local-install.sh upgrade"; menu="Configuration::Installer"; nodesktop="true"; icon="Update"; metric=2
+package="local-install"; needs="local-install"; title="Update Force"; command="${XTERM_CMD} --hold --title 'Force Update ThinStation' --execute local-install.sh upgrade-force"; menu="Configuration::Installer"; nodesktop="true"; icon="Update-Force"; metric=3
