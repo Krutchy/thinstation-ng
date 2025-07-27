@@ -1,6 +1,5 @@
-#8893caee5a900a65a72dd8d014b27553  .dna
+#acb5decbcf112d5b3e654361c1baddb0  .dna
 rm /ts/build/packages/xorg7-intel/lib64/xorg/modules/drivers/intel_drv.so
-rm /ts/build/packages/xorg7-intel/lib64/gallium-pipe/pipe_i915.so
 rm /ts/build/packages/xorg7-intel/lib64/vulkan/icd.d/intel_hasvk_icd.x86_64.json
 rm /ts/build/packages/xorg7-intel/lib64/vulkan/icd.d/intel_icd.x86_64.json
 rm /ts/build/packages/xorg7-intel/lib64/libvulkan_intel.so

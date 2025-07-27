@@ -1,13 +1,9 @@
-#a2519ca582280343bce920edf45e91cd  .dna
+#4a8e3d6daaf70a59c02a6f8c6a34bb1f  .dna
 
 mkdir -p /ts/build/packages/xorg7-amdgpu/lib64
 mkdir -p /ts/build/packages/xorg7-amdgpu/lib64/X11/xorg.conf.d
-mkdir -p /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe
 mkdir -p /ts/build/packages/xorg7-amdgpu/lib64/vulkan/icd.d
 mkdir -p /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers
-ln /usr/lib64/gallium-pipe/pipe_r300.so /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_r300.so
-ln /usr/lib64/gallium-pipe/pipe_r600.so /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_r600.so
-ln /usr/lib64/gallium-pipe/pipe_radeonsi.so /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_radeonsi.so
 ln /usr/lib64/libvulkan_radeon.so /ts/build/packages/xorg7-amdgpu/lib64/libvulkan_radeon.so
 ln /usr/lib64/xorg/modules/drivers/amdgpu_drv.so /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers/amdgpu_drv.so
 ln /usr/lib64/xorg/modules/drivers/ati_drv.so /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers/ati_drv.so

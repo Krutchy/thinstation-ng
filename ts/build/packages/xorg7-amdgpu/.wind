@@ -1,7 +1,4 @@
-#a2519ca582280343bce920edf45e91cd  .dna
-rm /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_r300.so
-rm /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_r600.so
-rm /ts/build/packages/xorg7-amdgpu/lib64/gallium-pipe/pipe_radeonsi.so
+#4a8e3d6daaf70a59c02a6f8c6a34bb1f  .dna
 rm /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers/amdgpu_drv.so
 rm /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers/ati_drv.so
 rm /ts/build/packages/xorg7-amdgpu/lib64/xorg/modules/drivers/radeon_drv.so
