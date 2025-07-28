@@ -39,6 +39,7 @@ class PackageWidget(QGroupBox):
         layout.addLayout(self.header_layout)            # Add header layout
         layout.addWidget(self.options_frame)            # Add options container
         self.setLayout(layout)                          # Set main layout
+        self.setMaximumWidth(500)
 
     # Header (Checkbox + Toggle)
     def _build_header(self):
@@ -59,55 +60,67 @@ class PackageWidget(QGroupBox):
 
     # Build Session Blocks
     def _build_options(self):
-        if self.pkg_data['package'].get('has-sessions', False): # Check if package has sessions
-            self._add_session_block()                           # Add initial session block
-            add_btn = QPushButton("+ Add Session")              # Button to add more sessions
-            add_btn.clicked.connect(self._add_session_block)    # Connect add session action
-            self.options_frame.layout().addWidget(add_btn)      # Add button to options layout
-        else:
-            self._add_session_block()                           # Add single session block (no sessions)
+        uses_sessions = self.pkg_data['package'].get('has-sessions', False)
+        self._add_option_block(uses_sessions=uses_sessions)
 
-    def _add_session_block(self):
-        container = QWidget()                           # Container for session block
-        layout = QVBoxLayout(container)                 # Vertical layout for session block
+        if uses_sessions:
+            add_btn = QPushButton("+ Add Session")
+            add_btn.clicked.connect(lambda: self._add_option_block(uses_sessions=True))
+            self.options_frame.layout().addWidget(add_btn)
 
-        # Session Header: Input + Remove Button
-        header_layout = QHBoxLayout()                   # Horizontal layout for header
-        session_input = QSpinBox()                      # Session number input field
-        session_input.setMinimum(0)
-        session_input.setSingleStep(1)
-        session_input.setFixedWidth(80)
+    def _add_option_block(self, uses_sessions=False):
+        container = QWidget()                               # Container for session block
+        layout = QVBoxLayout(container)                     # Vertical layout for session block
 
-        remove_btn = QPushButton("Remove")              # Button to remove this session
-        remove_btn.setFixedWidth(70)                    # Fix width
-        remove_btn.clicked.connect(
-            lambda: self._remove_session_block(
-                container, 
-                session_input
-            )
-        )
+        session_input = None
+        if uses_sessions:
+            # Session Header: Input + Remove Button
+            header_layout = QHBoxLayout()                   # Horizontal layout for header
+            session_input = QSpinBox()                      # Session number input field
+            session_input.setMinimum(0)                     # Session can't be negative number.
+            session_input.setSingleStep(1)                  # Session increments by 1.
+            session_input.setFixedWidth(80)
 
-        header_layout.addWidget(QLabel("Session:"))     # Label for session input
-        header_layout.addWidget(session_input)          # Add session input
-        header_layout.addStretch()                      # Add stretch to align
-        header_layout.addWidget(remove_btn)             # Add remove button
-        layout.addLayout(header_layout)                 # Add header layout to session block
+            if len(self.session_blocks) > 0:                # Don't add remove button for first session
+                remove_btn = QPushButton("Remove")          # Button to remove this session
+                remove_btn.setFixedWidth(70)                # Fix button width
+                remove_btn.clicked.connect(
+                    lambda: self._remove_session_block(
+                        container, 
+                        session_input
+                    )
+                )
+            else:
+                remove_btn = None
+
+            header_layout.addWidget(QLabel("Session:"))     # Label for session input
+            header_layout.addWidget(session_input)          # Add session input
+            header_layout.addStretch()                      # Add stretch to align
+            if remove_btn:                                  # If a remove button was made:
+                header_layout.addWidget(remove_btn)         # Add it to the layout
+            layout.addLayout(header_layout)                 # Add header layout to session block
 
         # Create Variable Input Widgets
-        inputs = {}                                                                             # Dictionary to hold input widgets
-        for var in self.pkg_data.get("variables", []):                                          # Loop over variables
-            widget = self._create_input_widget(var)                                             # Create appropriate widget
-            label = QLabel(var.get("description", var['name']))                                 # Label with session number
-            row = QWidget()                                                                     # Row container
-            row_layout = QHBoxLayout(row)                                                       # Horizontal layout for row
-            row_layout.addWidget(label)                                                         # Add label to row
-            row_layout.addWidget(widget)                                                        # Add widget to row
-            layout.addWidget(row)                                                               # Add row to session layout
-            inputs[var['name']] = widget                                                        # Store widget keyed by variable name
+        inputs = {}                                                     # Dictionary to hold input widgets
+        for var in self.pkg_data.get("variables", []):                  # Loop over variables
+            widget = self._create_input_widget(var)                     # Create appropriate widget
+            label = QLabel(var['name'])                                 # Label with variable name
+            desc = var.get("description")                               # Get variable description.
+            if desc:                                                    # If one exists:
+                label.setToolTip(desc)                                  # Set it as the label's tooltip.
+            
+            row = QWidget()                                             # Row container
+            row_layout = QHBoxLayout(row)                               # Horizontal layout for row
+            row_layout.addWidget(label)                                 # Add label to row
+            row_layout.addWidget(widget)                                # Add widget to row
+            layout.addWidget(row)                                       # Add row to session layout
+            
+            inputs[var['name']] = widget                                # Store widget keyed by variable name
 
-        self.option_inputs.update(inputs)                                                       # Update main option_inputs dict
-        self.options_frame.layout().insertWidget(len(self.session_blocks), container)           # Insert session widget in layout
-        self.session_blocks.append({                                                            # Track session block
+        self.option_inputs.update(inputs)                               # Update main option_inputs dict
+        insert_pos = len(self.session_blocks)
+        self.options_frame.layout().insertWidget(insert_pos, container) # Insert session widget in layout
+        self.session_blocks.append({                                    # Track session block
             'widget': container, 
             'session_input': session_input, 
             'inputs': inputs
@@ -129,24 +142,41 @@ class PackageWidget(QGroupBox):
 
     # Variable Option Input
     def _create_input_widget(self, var):
-        input_type = var.get('type', 'default')                     # Get variable type
+        input_type = var.get('type', 'text')                        # Get variable type
         if input_type == 'boolean':
             widget = QCheckBox()                                    # Checkbox for boolean
             widget.setChecked(bool(var.get('default', False)))      # Set default value
+            widget.true_value = var.get('true_value', 'True')       # What should be written to options if true (e.g., 'On')?
+            widget.false_value = var.get('false_value', 'False')    # What should be written to options if false (e.g., 'Off')?
         elif input_type == 'range':
             widget = QDoubleSpinBox()                               # Spinbox for numeric range
             step = var.get('step', 1)                               # Step size
             widget.setSingleStep(step)                              # Set step increment
             widget.setDecimals(                                     # Set decimals
                 max(0, str(step)[::-1].find('.'))                   # To whatever the step uses (e.g., 0.1 has 1 decimal place)
-                if isinstance(step, float) else 0                   # Or use 0 if the step is an integer.
+                if isinstance(step, float) else 0                   # Or use 0 for integers.
             )
             widget.setMinimum(var.get('min', 0))                    # Minimum value
             widget.setMaximum(var.get('max', 100))                  # Maximum value
             widget.setValue(var.get('default', var.get('min', 0)))  # Default value
         elif input_type == 'list':
             widget = QComboBox()                                    # Dropdown for list
-            widget.addItems(var.get('options', []))                 # Add options
+            options = var.get('options', [])                        # Get dropdown options.
+            option_tooltips = var.get('option_tooltips', {})        # Optional dict: option -> tooltip
+            
+            for option in options:
+                if isinstance(option, str) and ':' in option:       # If option has a tooltip:
+                    display_text, tooltip = option.split(':', 1)    # Separate that from the option name.
+                else:
+                    display_text = str(option)                      # Otherwise just label as the option name.
+                    tooltip = ""                                    # With an empty tooltip.
+                
+                widget.addItem(display_text)                        # Add label to the dropdown item.
+                index = widget.findText(display_text)               # Get the index for the item.
+                if index >= 0:                                      # And set its tooltip accordingly.
+                    model_index = widget.model().index(index, 0)
+                    widget.model().setData(model_index, tooltip, Qt.ToolTipRole)
+
             default = var.get('default')                            # Default selection
             if default:
                 idx = widget.findText(default)                      # Find default index
@@ -163,19 +193,39 @@ class PackageWidget(QGroupBox):
     # Gather All Options for Submission
     def get_options(self):
         opts = {}                                                   # Dictionary to store all options
-        for block in self.session_blocks:                           # For each session block
-            session_text = block['session_input'].text().strip()    # Get session number text
-            if not session_text.isdigit():                          # Skip if not a number
-                continue
-            session_num = session_text
-            for varname, widget in block['inputs'].items():         # Loop over inputs
+        uses_sessions = self.pkg_data['package'].get('has-sessions', False)
+        for block in self.session_blocks:                           # For each session block (packages without sessions technically have one block):
+            session_num = "-1" if not use_sessions \
+                else str(block['session_input'].value())            # Get session number input (if applicable)
+            for option_name, widget in block['inputs'].items():     # For each input:
+                var_definition = next(                              # An option is defined as:
+                    (v for v in self.pkg_data.get("variables", [])  # The next option from the package.
+                        if v['name'] == option_name                 # If the option has its original name,
+                        or v['name'].endswith('#')                  # Or is a recursive option.
+                    ), 
+                    None                                            # Otherwise it's None
+                )
+                required = var_definition.get('required', False) if var_definition else False
+
                 if isinstance(widget, QCheckBox):                   # Get value for checkbox
-                    val = widget.isChecked()
-                elif isinstance(widget, QComboBox):                 # Get value for combo box
+                    val = widget.true_value if widget.isChecked() \
+                        else widget.false_value
+                elif isinstance(widget, QComboBox):                 # Get value for dropdown
                     val = widget.currentText()
-                else:
-                    val = widget.text()                             # Get text value
-                opts[varname.replace("#", session_num)] = val       # Store option with session number replaced
+                elif isinstance(widget, (QSpinBox, QDoubleSpinBox)):# Get range value
+                    val = widget.value()
+                else:                                               # Get text value
+                    val = widget.text().strip()
+                
+                is_null = val == "" or val is None                  # Was any input given?
+                if (is_null and required):                          # If not and an input is required:
+                    val == widget.default                           # Use the default value.
+                elif (is_null and not required):                    # If not but no input is required:
+                    continue                                        # Don't return the option at all.
+                
+                key = option_name if not use_sessions \
+                    else option_name.replace("#", session_num)      # Use the option name as the key (replacing '#' with session number if applicable).
+                opts[key] = val                                     # Add option and its value to dictionary.
         return opts
 
 # Main Application
@@ -223,7 +273,7 @@ class PackageApp(QWidget):
                 grid.addWidget(widget, row, col)                    # Add widget to grid
             container = QWidget()                                   # Container widget for grid
             container.setLayout(grid)                               # Set grid layout
-            scroll_layout.addWidget(container)                      # Add container to scroll layout
+            scroll_layout.addWidget(container, alignment=Qt.AlignLeft) # Add packages to layout.
 
         scroll_layout.addStretch()                                  # Add stretch to push widgets up
         scroll_area = QScrollArea()                                 # Scroll area to hold all content
@@ -268,9 +318,11 @@ class PackageApp(QWidget):
                 f_pkg.write(f"### {cat} ###\n")                                                         # Write category header
                 for widget in widgets:
                     f_pkg.write(f"package {widget.pkg_data['package']['name']}\n")                      # Write package line to build.conf
-                    f_opt.write(f"### {widget.pkg_data['package']['name']} ###\n")                      # Write header for package to thinstation.conf.buildtime
-                    for k, v in widget.get_options().items():                                           # Write all options for package to thinstation.conf.buildtime
-                        f_opt.write(f"{k}={v}\n")
+                    options = widget.get_options()
+                    if (options):                                                                       # If package has any options:
+                        f_opt.write(f"### {widget.pkg_data['package']['name']} ###\n")                  # Write header for package to thinstation.conf.buildtime
+                        for name, value, in options.items():                                            # Write all options for package to thinstation.conf.buildtime
+                            f_opt.write(f"{name}={value}\n")
 
         QMessageBox.information(self, "Done", "Configuration files written successfully!")              # Notify user when finished.
 

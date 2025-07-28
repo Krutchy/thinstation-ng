@@ -1,0 +1,135 @@
+package:
+  name: "base"
+  category: "Utilities"
+  priority: 10
+  has-sessions: false
+  visible: true
+  dependencies:
+    - "terminfo"
+    - "busybox-shared"
+    - "kmod"
+    - "systemd"
+    - "base-nss"
+    - "bash"
+    - "crypto-policies"
+    - "libbpf"
+
+variables:
+  - name: "AUDIO_LEVEL"
+    description: "Audio Level for sound."
+    type: "range"
+    min: 0
+    max: 100
+    step: 1
+    default: 50
+
+  - name: "MIC_LEVEL"
+    description: "Recording level for input devices."
+    type: "range"
+    min: 0
+    max: 100
+    step: 1
+    default: 50
+
+  - name: "SYSLOG_SERVER"
+    description: "Log server ip address or hostname. If not specified syslogd is not loaded. Using 'local' logs locally."
+    type: "text"
+    default: "local"
+    
+  - name: "USB_STORAGE_SYNC"
+    description: "Use safer writing to USB storage devices. Turning this off makes writing faster, but may lead to data corruption if the device is unplugged before buffers have been flushed."
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: true
+
+  - name: "USB_MOUNT_DIR"
+    description: "Directory to use for mounting usbdisks."
+    type: "text"
+    default: "/mnt/usbdevice/"
+
+  - name: "USB_MOUNT_USELABEL"
+    description: "How to label individual USB disks. By default, disks are labeled with their device name. Using 'NO' will use the default, and 'YES' will search the USB volume for a label and use it, or else use the default. Any other value will also search the USB volume but use that value if no label is found."
+    type: "Text"
+    default: "NO"
+
+  - name: "USB_MOUNT_OPTIONS"
+    description: "Additional mount options for disk devices."
+    type: "text"
+    default: "local"
+
+  - name: "MENU_SHOWSETTINGS"
+    description: "Display Settings item in start menu."
+    type: "boolean"
+    default: false
+
+  - name: "DAILY_REBOOT"
+    description: "Reboot server after 24 hours if any sessions have been closed?"
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
+
+  - name: "CUSTOM_CONFIG"
+    description: "What to do when all sessions have exited and not reconnected."
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
+
+  - name: "RECONNECT_PROMPT"
+    description: "Prompt user to reconnect when a session ends?"
+    type: "list"
+    options:
+      - "OFF:Reconnect prompt will be displayed."
+      - "ON:No reconnect prompt."
+      - "FORCE:Just reconnect."
+      - "AUTO:Automatic reconnect."
+      - "AUTOXX:Automatic reconnect attempt after XX seconds - msg is displayed."
+      - "MENU:Shows a menu with a shutdown and reconnection option."
+      - "MENUXX:Shows a menu, but shuts down after XX minutes if reconnection never selected."
+    default: "OFF"
+    
+  - name: "NO_SESSION"
+    description: "Reboot if there are no sessions? Otherwise power off."
+    type: "boolean"
+    true_value: "REBOOT"
+    false_value: "POWEROFF"
+    default: false
+    
+  - name: "DEBUGPAUSE"
+    description: "Pause after loading modules but before starting?"
+    type: "boolean"
+    default: false
+    
+  - name: "FASTBOOT_URL"
+    description: "Log server ip address or hostname. If not specified syslogd is not loaded. Using 'local' logs locally."
+    type: "text"
+
+  - name: "AUTOSTART"
+    description: "Run applications at startup?"
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
+
+  - name: "ICONMODE"
+    description: "Create default sessions in window manager/idesk or wbar?"
+    type: "boolean"
+    true_value: "AUTO"
+    false_value: "MANUAL"
+    default: true
+
+  - name: "ALWAYS_ENTER_SERVER"
+    description: "Whether or not the server entry dialog box is always displayed."
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: true
+
+  - name: "ALLOW_EXIT"
+    description: "Whether or not a user will be allowed to cancel the server address entry."
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
