@@ -1,0 +1,84 @@
+#!/bin/sh
+
+export PACKAGE="qemu"
+export PORTS="
+qemu-img
+qemu-kvm-core.x86_64
+qemu-pr-helper.x86_64
+qemu-system-aarch64.x86_64
+qemu-system-aarch64-core.x86_64
+qemu-system-alpha.x86_64
+qemu-system-alpha-core.x86_64
+qemu-system-arm.x86_64
+qemu-system-arm-core.x86_64
+qemu-system-avr.x86_64
+qemu-system-avr-core.x86_64
+qemu-system-loongarch64.x86_64
+qemu-system-loongarch64-core.x86_64
+qemu-system-m68k.x86_64
+qemu-system-m68k-core.x86_64
+qemu-system-microblaze.x86_64
+qemu-system-microblaze-core.x86_64
+qemu-system-mips.x86_64
+qemu-system-mips-core.x86_64
+qemu-system-or1k.x86_64
+qemu-system-or1k-core.x86_64
+qemu-system-ppc.x86_64
+qemu-system-ppc-core.x86_64
+qemu-system-riscv.x86_64
+qemu-system-riscv-core.x86_64
+qemu-system-rx.x86_64
+qemu-system-rx-core.x86_64
+qemu-system-s390x.x86_64
+qemu-system-s390x-core.x86_64
+qemu-system-sh4.x86_64
+qemu-system-sh4-core.x86_64
+qemu-system-sparc.x86_64
+qemu-system-sparc-core.x86_64
+qemu-system-tricore.x86_64
+qemu-system-tricore-core.x86_64
+qemu-system-x86.x86_64
+qemu-system-x86-core.x86_64
+qemu-system-xtensa.x86_64
+qemu-system-xtensa-core.x86_64
+qemu-tools.x86_64
+qemu-ui-curses.x86_64
+qemu-ui-egl-headless.x86_64
+qemu-ui-gtk.x86_64
+qemu-ui-opengl.x86_64
+qemu-ui-sdl.x86_64
+qemu-ui-spice-app.x86_64
+qemu-ui-spice-core.x86_64
+qemu-user.x86_64
+qemu-user-static.x86_64
+qemu-user-static-aarch64.x86_64
+qemu-user-static-alpha.x86_64
+qemu-user-static-arm.x86_64
+qemu-user-static-hexagon.x86_64
+qemu-user-static-hppa.x86_64
+qemu-user-static-loongarch64.x86_64
+qemu-user-static-m68k.x86_64
+qemu-user-static-microblaze.x86_64
+qemu-user-static-mips.x86_64
+qemu-user-static-or1k.x86_64
+qemu-user-static-ppc.x86_64
+qemu-user-static-riscv.x86_64
+qemu-user-static-s390x.x86_64
+qemu-user-static-sh4.x86_64
+qemu-user-static-sparc.x86_64
+qemu-user-static-x86.x86_64
+qemu-user-static-xtensa.x86_64
+seabios-bin
+seavgabios-bin
+edk2-ovmf
+ipxe-roms-qemu"
+
+export DROP_FILES=""
+export DROP_DIRS=""
+export CREATE_EMPTY_DIRS=""
+
+repackage -e
+
+returnval=$?
+
+exit $returnval
