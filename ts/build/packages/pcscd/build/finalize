@@ -1,2 +1,3 @@
 #pcscd 60
 systemctl enable pcscd.init
+systemctl enable pcscd.socket
