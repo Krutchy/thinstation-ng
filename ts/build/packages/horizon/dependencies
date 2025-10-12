@@ -4,3 +4,8 @@ cups
 desktop-file-utils
 zlib-ng-compat
 openssl
+ca-certificates
+nss
+p11-kit
+nss-softokn
+v4l

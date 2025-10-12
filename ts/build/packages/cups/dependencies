@@ -7,3 +7,4 @@ alternatives
 ghostscript
 fonts-urw-base35
 file
+libcurl

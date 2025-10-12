@@ -1,0 +1,36 @@
+#!/bin/sh
+
+export PACKAGE="qemu"
+export PORTS="
+qemu-img
+qemu-kvm-core.x86_64
+qemu-pr-helper.x86_64
+qemu-system-x86.x86_64
+qemu-system-x86-core.x86_64
+qemu-system-xtensa.x86_64
+qemu-system-xtensa-core.x86_64
+qemu-tools.x86_64
+qemu-ui-curses.x86_64
+qemu-ui-egl-headless.x86_64
+qemu-ui-gtk.x86_64
+qemu-ui-opengl.x86_64
+qemu-ui-sdl.x86_64
+qemu-ui-spice-app.x86_64
+qemu-ui-spice-core.x86_64
+qemu-user.x86_64
+qemu-user-static.x86_64
+qemu-user-static-x86.x86_64
+seabios-bin
+seavgabios-bin
+edk2-ovmf
+ipxe-roms-qemu"
+
+export DROP_FILES=""
+export DROP_DIRS=""
+export CREATE_EMPTY_DIRS=""
+
+repackage -e
+
+returnval=$?
+
+exit $returnval
