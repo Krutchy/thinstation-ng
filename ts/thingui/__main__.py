@@ -17,7 +17,7 @@ def load_styles(app, STYLE_FILES):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    main_config_data = load_main_config()
+    main_config_data = load_main_config("thingui_config.yaml")
     packages = load_packages(main_config_data)
     load_styles(app, main_config_data.get("STYLE_FILES", []))
     window = PackageApp(

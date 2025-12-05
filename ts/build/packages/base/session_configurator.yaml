@@ -1,0 +1,46 @@
+variables:
+  - name: "SESSION_#_TYPE"
+    description: "Title description for SESSION. Needed for replimenu."
+    type: "text"
+
+  - name: "SESSION_#_AUTOSTART"
+    description: "How session starts on boot, if at all."
+    type: "list"
+    options:
+      - "ON:Application will be executed immediately at startup."
+      - "WINDOW:Application will be executed immediately at startup in window mode."
+      - "FULLSCREEN:Application will be executed immediately at startup in fullscreen mode."
+      - "CONSOLE:Application will be executed immediately at startup in console mode."
+      - "OFF:Application will appear in a menu to be started manually."
+    default: "OFF"
+
+  - name: "SESSION_#_CUSTOM_CONFIG"
+    description: "Allows choosing custom config for when session starts."
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
+
+  - name: "SESSION_#_ICON"
+    type: "list"
+    options:
+      - "ON:Places Icon on Desktop if package xtdesk is selected and in Window Manager Main Menu."
+      - "SUBMENU:Places Icon on Desktop if package xtdesk is selected and in a Submenu within the window manager."
+
+  - name: "SESSION_#_type_SERVER"
+    description: "IP address/hostname of the server."
+    type: "text"
+
+  - name: "SESSION_#_type_OPTIONS"
+    description: "Command line options for the session type."
+    type: "text"
+
+  - name: "SESSION_#_type_USER"
+    description: "Specify the user for sessions types that require a user."
+    type: "text"
+
+  - name: "SESSION_#_type_PASS_ENABLE"
+    description: "If disabled, overrides a session type that wants password input."
+    type: "boolean"
+    default: true
+

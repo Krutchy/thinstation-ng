@@ -1,6 +1,8 @@
 PACKAGE_DIR: "../../build/packages"         # Where should thingui look for packages (default: "../build/packages")?
                                             # Note that relative filepaths will be in relation to the root, "/thingui".
                                             # In other words, "../build/packages" becomes "/thingui/../build/packages".
+SESSION_CONFIGURATOR_FILEPATH: "../../build/packages/base/session_configurator.yaml"
+DEFAULT_CATEGORY: "Misc"                    # What category should a package fall under if it has none listed?
 OUTPUT_DIR: "./thingui/output"              # Where should thingui output its build.conf and thinstation.conf.buildtime files (default: "./output")?
 STYLE_FILES:                                # What files should thingui look at for QSS styling?
   - "./styles/main.qss"                     # This file contains the default styling.
