@@ -23,8 +23,8 @@
 #
 #                        Also note that the .profile can be changed by using
 #                        the below STORAGE_PREFIX
-# STORAGE_PREFIX         This is prefex for the folder name to store settings
-#                        in on the storage device.   You can also use one of the
+# STORAGE_PREFIX         This is the prefix for the folder name to store settings
+#                        in on the storage device. You can also use one of the
 #                        special characters below.
 #
 #                        M = Mac Address
