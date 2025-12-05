@@ -18,7 +18,6 @@ class PackageWidget(QGroupBox):
         self.options_frame = QWidget()
         self.options_frame.setLayout(QVBoxLayout())
         self.options_frame.setVisible(False)
-
         self._build_header()
         self._build_options()
 
@@ -26,7 +25,7 @@ class PackageWidget(QGroupBox):
         layout.addLayout(self.header_layout)
         layout.addWidget(self.options_frame)
         self.setLayout(layout)
-        self.setMaximumWidth(500)
+        self.setMaximumWidth(350)
 
     def _build_header(self):
         self.header_layout = QHBoxLayout()
@@ -58,6 +57,7 @@ class PackageWidget(QGroupBox):
         layout = QVBoxLayout(container)
 
         session_input = None
+        header_layout = None
         if uses_sessions:
             header_layout = QHBoxLayout()
             session_input = QSpinBox()
@@ -67,6 +67,13 @@ class PackageWidget(QGroupBox):
             header_layout.addWidget(QLabel("Session:"))
             header_layout.addWidget(session_input)
             header_layout.addStretch()
+
+            # Add Remove button
+            remove_btn = QPushButton("Remove")
+            remove_btn.setFixedWidth(70)
+            remove_btn.clicked.connect(lambda _, c=container: self._remove_session_block(c))
+            header_layout.addWidget(remove_btn)
+
             layout.addLayout(header_layout)
 
         inputs = {v['name']: create_input_widget(v) for v in self.package_data.get("variables", [])}
@@ -96,6 +103,16 @@ class PackageWidget(QGroupBox):
             "inputs": inputs
         })
         self.options_frame.layout().insertWidget(len(self.session_blocks)-1, container)
+
+    def _remove_session_block(self, container):
+        # Find the block in session_blocks
+        for i, block in enumerate(self.session_blocks):
+            if block['widget'] == container:
+                self.session_blocks.pop(i)
+                break
+        # Remove from layout
+        self.options_frame.layout().removeWidget(container)
+        container.setParent(None)
 
     def get_options(self):
         # Gather options from all session blocks
