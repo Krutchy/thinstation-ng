@@ -130,7 +130,12 @@ def create_input_widget(var):
     input_type = var.get('type', 'text').lower()
     factory = INPUT_TYPE_MAP.get(input_type, text_input)
     widget = factory(var)
+
     if var.get("repeatable", False):
-        return RepeaterWidget(lambda: factory(var), label_text=var.get("name"))
+        start = int(var.get("start", 0)) # What do the mounts start at?
+        limit = int(var.get("limit", 0)) # 0 means there is no limit.
+        if (start > limit): raise ValueError(f"Start value {start} exceeds limit value {limit} for a repeatable option.")
+        return RepeaterWidget(lambda: factory(var), label_text=var.get("name"), start=start, limit=limit)
+
     return widget
 
