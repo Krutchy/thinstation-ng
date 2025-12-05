@@ -1,4 +1,8 @@
-/* QLabel: Category headers and descriptions */
+/* ---------------------------------- */
+QLabel {
+    font-size: 12px;
+}
+
 QLabel#category {
     font-weight: bold;
     font-size: 14px;
@@ -6,43 +10,61 @@ QLabel#category {
     margin-bottom: 4px;
 }
 
-QLabel {
+QLabel#description {
+    font-size: 12px;
+    color: gray;
+}
+
+QLabel#option_label {
     font-size: 12px;
 }
 
-/* QPushButton: Toggle and Submit */
+/* ---------------------------------- */
+/* QPushButton */
 QPushButton {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     color: black;
     border: none;
     padding: 6px 12px;
     border-radius: 4px;
     font-size: 12px;
 }
+
 QPushButton:hover {
     background-color: #45a049;
 }
+
 QPushButton:pressed {
     background-color: #3e8e41;
 }
+
 QPushButton:disabled {
     color: gray;
     background-color: #dddddd;
     border: 1px solid #cccccc;
 }
 
-/* QCheckBox */
+/* ---------------------------------- */
 QCheckBox {
     font-size: 12px;
 }
 
-/* QComboBox */
+QCheckBox#option_checkbox {
+    font-size: 12px;
+}
+
+/* ---------------------------------- */
 QComboBox {
     padding: 4px;
     font-size: 12px;
 }
 
-/* QLineEdit */
+QComboBox#dropdown {
+    padding: 4px;
+    font-size: 12px;
+}
+
+/* ---------------------------------- */
 QLineEdit {
     padding: 4px;
     font-size: 12px;
@@ -50,19 +72,32 @@ QLineEdit {
     border-radius: 3px;
 }
 
-/* QSpinBox and QDoubleSpinBox */
+QLineEdit#text_input {
+    padding: 4px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* ---------------------------------- */
 QSpinBox, QDoubleSpinBox {
     padding: 2px 4px;
     font-size: 12px;
 }
 
-/* QGroupBox: Package box */
-QGroupBox {
+QSpinBox#number_input, QDoubleSpinBox#number_input {
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+/* ---------------------------------- */
+QGroupBox#package_group {
     margin-top: 8px;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 6px;
 }
+
 QGroupBox::title {
     subcontrol-origin: margin;
     left: 10px;
@@ -70,7 +105,19 @@ QGroupBox::title {
     font-weight: bold;
 }
 
-/* Scroll area: ensure padding inside the scroll content */
+/* ---------------------------------- */
+/* Scroll area */
 QScrollArea QWidget {
     padding: 6px;
 }
+
+/* ---------------------------------- */
+/* Placeholders */
+QToolButton {}
+QRadioButton {}
+QTabWidget {}
+QTabBar {}
+QSlider {}
+QProgressBar {}
+QFrame {}
+QScrollBar {}

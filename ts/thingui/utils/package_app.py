@@ -8,9 +8,9 @@ class PackageApp(QWidget):
     def __init__(self):
         super().__init__()
         self.main_config_data = _load_main_config()
-        self.packages = _load_packages(self.main_config_data)
         self.setWindowTitle(self.main_config_data.get("APP_TITLE", "Package Selector"))
         self.OUTPUT_DIR = self.main_config_data.get("OUTPUT_DIR", "./output")
+        self.packages = _load_packages(self.main_config_data)
         self.package_widgets = []
         self._init_ui()
 
@@ -20,7 +20,10 @@ class PackageApp(QWidget):
         scroll_layout = QVBoxLayout(scroll_widget)
 
         for category, pkgs in self.packages.items():
-            scroll_layout.addWidget(QLabel(f"<b>{category}</b>"))
+            category_header = QLabel(category)
+            category_header.setObjectName("category")
+
+            scroll_layout.addWidget(category_header)
             grid = QGridLayout()
             for i, pkg in enumerate(pkgs):
                 widget = PackageWidget(pkg, self)

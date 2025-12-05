@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import (
     QWidget, QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox,
-    QPushButton, QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox
+    QPushButton, QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QSizePolicy
 )
 from PySide6.QtCore import Qt
-from .input_widget import input_widget
+from .input_widget import _create_input_widget
 
 class PackageWidget(QGroupBox):
     def __init__(self, package_data, app_ref):
@@ -71,13 +71,25 @@ class PackageWidget(QGroupBox):
             header_layout.addStretch()
             layout.addLayout(header_layout)
 
-        inputs = {v['name']: self._create_input_widget(v) for v in self.package_data.get("variables", [])}
-        for name, widget in inputs.items():
+        inputs = {v['name']: _create_input_widget(v) for v in self.package_data.get("variables", [])}
+        for v in self.package_data.get("variables", []):
+            name = v['name']
+            widget_container = inputs[name]
+
             row = QWidget()
             row_layout = QHBoxLayout(row)
-            row_layout.addWidget(QLabel(name))
-            row_layout.addWidget(widget)
+            row_layout.setContentsMargins(0, 0, 0, 0)
+            name_label = QLabel(name)
+            row_layout.addWidget(name_label)
+            row_layout.addWidget(widget_container)
             layout.addWidget(row)
+
+            description = v.get("description", None)
+            if description:
+                description_label = QLabel(description)
+                description_label.setObjectName("description")
+                description_label.setWordWrap(True)
+                layout.addWidget(description_label)
 
         self.option_inputs.update(inputs)
         self.session_blocks.append({
@@ -86,9 +98,6 @@ class PackageWidget(QGroupBox):
             "inputs": inputs
         })
         self.options_frame.layout().insertWidget(len(self.session_blocks)-1, container)
-
-    def _create_input_widget(self, var):
-        return input_widget(var)
 
     def get_options(self):
         # Gather options from all session blocks
