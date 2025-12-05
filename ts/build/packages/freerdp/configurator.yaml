@@ -1,0 +1,45 @@
+package:
+  name: "freerdp"
+  category: "Utilities"
+  priority: 50
+  has-sessions: true
+  visible: true
+  dependencies:
+    - "base"
+    - "messagebox"
+    - "pcscd"
+    - "alsa"
+    - "gst-libav"
+    - "gst-plugins-base"
+    - "gstreamer"
+    - "gtkdialog"
+
+options:
+  - name: "FREERDP_GETUSER"
+    description: "If turned off, removes user/password prompt."
+    type: "boolean"
+    true_value: "on"
+    false_value: "off"
+    default: true
+
+  - name: "FREERDP_SMARTCARD"
+    description: "If turned off, removes user/password prompt."
+    type: "boolean"
+    true_value: "on"
+    false_value: "off"
+    default: true
+
+  - name: "FREERDP_SOUND"
+    description: "Equivalent to adding /sound:<option> (example: sys:pulse)."
+    type: "text"
+
+  - name: "FREERDP_CERTIGNORE"
+    description: "Turing on is equivalent to adding /cert:ignore."
+    type: "boolean"
+    true_value: "on"
+    false_value: "off"
+    default: false
+
+  - name: "FREERDP_CERT"
+    description: "Equivalent to adding /cert:<option> (example: deny)"
+    type: "text"
