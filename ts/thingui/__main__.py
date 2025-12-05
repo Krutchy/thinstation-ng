@@ -15,8 +15,6 @@ def _load_styles(app, STYLE_FILES):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-
-
     main_config_data = _load_main_config()
     STYLE_FILES = main_config_data.get("STYLE_FILES", [])
     if STYLE_FILES: _load_styles(app, STYLE_FILES)

@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout, QPushButton, QMessageBox
 from PySide6.QtGui import QGuiApplication
-from ..classes.package_widget import PackageWidget
+from .package_widget import PackageWidget
 from ..conf.config import _load_main_config, _load_packages
 import os
 
