@@ -67,7 +67,7 @@ def list_input(var):
     description_label.setObjectName("description")
     description_label.setVisible(False)
 
-    option_map = {}  # Store description for each option
+    option_map = {}
     for opt in var.get('options', []):
         if isinstance(opt, str) and ':' in opt:
             display_text, suboption_description = opt.split(':', 1)
@@ -98,7 +98,6 @@ def list_input(var):
     layout.addWidget(spinbox)
     layout.addWidget(description_label)
 
-    # Attach spinbox to combo for later access in get_options
     combo._spinbox = spinbox
     container.combo = combo
     container.spinbox = spinbox
@@ -128,13 +127,10 @@ INPUT_TYPE_MAP = {
 }
 
 def create_input_widget(var):
-    """
-    Returns a widget based on a variable's input type.
-    """
     input_type = var.get('type', 'text').lower()
-    widget_factory = lambda: INPUT_TYPE_MAP.get(input_type, text_input)(var)
-
+    factory = INPUT_TYPE_MAP.get(input_type, text_input)
+    widget = factory(var)
     if var.get("repeatable", False):
-        return RepeaterWidget(widget_factory, label_text=var.get('name'))
+        return RepeaterWidget(lambda: factory(var), label_text=var.get("name"))
+    return widget
 
-    return widget_factory()

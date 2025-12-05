@@ -1,77 +1,83 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel, QScrollArea, QGridLayout, QPushButton, QMessageBox
+from PySide6.QtWidgets import QWidget, QVBoxLayout, QTreeWidget, QTreeWidgetItem, QStackedWidget, QPushButton, QScrollArea, QSplitter, QMessageBox
+from PySide6.QtCore import Qt
 from PySide6.QtGui import QGuiApplication
 from .package_widget import PackageWidget
-from ..conf.config import _load_main_config, _load_packages
 import os
 
 class PackageApp(QWidget):
-    def __init__(self):
+    def __init__(self, packages, output_dir, app_title):
         super().__init__()
-        self.main_config_data = _load_main_config()
-        self.setWindowTitle(self.main_config_data.get("APP_TITLE", "Package Selector"))
-        self.OUTPUT_DIR = self.main_config_data.get("OUTPUT_DIR", "./thingui/output")
-        self.packages = _load_packages(self.main_config_data)
-        self.package_widgets = []
-        self._init_ui()
+        self.packages = packages
+        self.OUTPUT_DIR = output_dir
+        self.setWindowTitle(app_title)
+        self.package_widgets = {}
+        self.init_ui()
 
-    def _init_ui(self):
-        layout = QVBoxLayout()
-        scroll_widget = QWidget()
-        scroll_layout = QVBoxLayout(scroll_widget)
+    def init_ui(self):
+        splitter = QSplitter(Qt.Horizontal)
+        self.tree_widget = QTreeWidget()
+        self.tree_widget.setHeaderHidden(True)
+        self.tree_widget.setMinimumWidth(150)
+        self.tree_widget.itemClicked.connect(self.on_item_clicked)
+        splitter.addWidget(self.tree_widget)
+
+        self.stack_widget = QStackedWidget()
+        splitter.addWidget(self.stack_widget)
+        splitter.setSizes([250, 750])
 
         for category, pkgs in self.packages.items():
-            category_header = QLabel(category)
-            category_header.setObjectName("category")
+            cat_item = QTreeWidgetItem([category])
+            self.tree_widget.addTopLevelItem(cat_item)
+            for pkg in pkgs:
+                pkg_item = QTreeWidgetItem([pkg['package']['name']])
+                cat_item.addChild(pkg_item)
 
-            scroll_layout.addWidget(category_header)
-            grid = QGridLayout()
-            for i, pkg in enumerate(pkgs):
                 widget = PackageWidget(pkg, self)
-                self.package_widgets.append(widget)
-                row, col = divmod(i, 3)
-                grid.addWidget(widget, row, col)
-            container = QWidget()
-            container.setLayout(grid)
-            scroll_layout.addWidget(container)
+                scroll_area = QScrollArea()
+                scroll_area.setWidget(widget)
+                scroll_area.setWidgetResizable(True)
 
-        scroll_layout.addStretch()
-        scroll_area = QScrollArea()
-        scroll_area.setWidget(scroll_widget)
-        scroll_area.setWidgetResizable(True)
-        layout.addWidget(scroll_area)
+                self.package_widgets[pkg['package']['name']] = scroll_area
+                self.stack_widget.addWidget(scroll_area)
 
+        main_layout = QVBoxLayout(self)
+        main_layout.addWidget(splitter)
         submit_btn = QPushButton("Submit")
         submit_btn.clicked.connect(self.submit)
-        layout.addWidget(submit_btn)
+        main_layout.addWidget(submit_btn)
 
-        self.setLayout(layout)
-        screen = QGuiApplication.primaryScreen().geometry()
+        screen = QGuiApplication.primaryScreen().availableGeometry()
         self.resize(int(screen.width() * 0.6), int(screen.height() * 0.6))
+        self.move((screen.width() - self.width()) // 2, (screen.height() - self.height()) // 2)
+
+        first_pkg_item = self.tree_widget.topLevelItem(0).child(0) if self.tree_widget.topLevelItemCount() > 0 else None
+        if first_pkg_item:
+            self.tree_widget.setCurrentItem(first_pkg_item)
+            self.display_package_options(first_pkg_item)
+
+    def on_item_clicked(self, item, column):
+        if item.parent():
+            self.display_package_options(item)
+
+    def display_package_options(self, item):
+        name = item.text(0)
+        scroll_area = self.package_widgets.get(name)
+        if scroll_area:
+            self.stack_widget.setCurrentWidget(scroll_area)
 
     def submit(self):
-        if not any(w.selected.isChecked() for w in self.package_widgets):
-            QMessageBox.warning(self, "Validation Error", "Please select at least one package before submitting.")
+        if not any(sa.widget().selected.isChecked() for sa in self.package_widgets.values()):
+            QMessageBox.warning(self, "Validation Error", "Please select at least one package.")
             return
-
         os.makedirs(self.OUTPUT_DIR, exist_ok=True)
-        seen_sessions = set()
-        for widget in self.package_widgets:
-            if widget.selected.isChecked():
-                for block in widget.session_blocks:
-                    session_val = str(block['session_input'].value()) if block['session_input'] else "-1"
-                    if session_val in seen_sessions:
-                        QMessageBox.warning(self, "Validation Error", f"Duplicate session number: {session_val}")
-                        return
-                    seen_sessions.add(session_val)
-
         pkg_file = os.path.join(self.OUTPUT_DIR, "build.conf")
         opt_file = os.path.join(self.OUTPUT_DIR, "thinstation.conf.buildtime")
         with open(pkg_file, 'w') as f_pkg, open(opt_file, 'w') as f_opt:
-            for cat, pkgs in self.packages.items():
-                widgets = [w for w in self.package_widgets if w.package_data in pkgs and w.selected.isChecked()]
+            for category, pkgs in self.packages.items():
+                widgets = [sa.widget() for sa in self.package_widgets.values() if sa.widget().package_data in pkgs and sa.widget().selected.isChecked()]
                 if not widgets:
                     continue
-                f_pkg.write(f"### {cat} ###\n")
+                f_pkg.write(f"### {category} ###\n")
                 for w in widgets:
                     f_pkg.write(f"package {w.package_data['package']['name']}\n")
                     options = w.get_options()
@@ -79,5 +85,4 @@ class PackageApp(QWidget):
                         f_opt.write(f"### {w.package_data['package']['name']} ###\n")
                         for k, v in options.items():
                             f_opt.write(f"{k}={v}\n")
-
         QMessageBox.information(self, "Done", "Configuration files written successfully!")
