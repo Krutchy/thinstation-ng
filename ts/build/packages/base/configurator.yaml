@@ -129,15 +129,16 @@ variables:
       - "REBOOT:Shutdown the terminal."
       - "POWEROFF:Reboot the terminal."
     default: "REBOOT"
-    
+
   - name: "DEBUGPAUSE"
-    description: "Pause after loading modules but before starting?"
+    description: "Will pause at prompt after load of all modules and packages but before starting. Only works if 'debug' package included."
     type: "boolean"
     default: false
-    
+
   - name: "FASTBOOT_URL"
-    description: "Log server ip address or hostname. If not specified syslogd is not loaded. Using 'local' logs locally."
+    description: "Normally fastboot will try to load lib.squash in the same way that vmlinuz and initrd were loaded. This will force fastboot to download lib.squash using a specific protocol and location."
     type: "text"
+    default: ""
 
   - name: "AUTOSTART"
     description: "Run applications at startup?"
