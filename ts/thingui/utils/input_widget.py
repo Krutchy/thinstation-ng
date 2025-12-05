@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QCheckBox, QDoubleSpinBox, QComboBox, QLabel, QLineEdit
+from PySide6.QtWidgets import QCheckBox, QWidget, QVBoxLayout, QSpinBox, QDoubleSpinBox, QComboBox, QLabel, QLineEdit
 from .repeater_widget import RepeaterWidget
 
 def boolean_input(var):
@@ -24,11 +24,15 @@ def range_input(var):
     Variables:
         @step (int or float): How much does the value increment or decrement by (default: 1)?
         @min (int or float): What is the minimum allowable value (default: 0)?
-        @max (int or float): What is the maximum allowable value (default: 0)?
-        @default (int or float): What should the value be by default (default: min if exists, else 0)?
+        @max (int or float): What is the maximum allowable value (default: 100)?
+        @default (int or float): What should the value be by default (default: min)?
     """
-    widget = QDoubleSpinBox()
-    widget.setSingleStep(var.get('step', 1))
+    step = var.get('step', 1)
+    if isinstance(step, int):
+        widget = QSpinBox()
+    else:
+        widget = QDoubleSpinBox()
+    widget.setSingleStep(step)
     widget.setMinimum(var.get('min', 0))
     widget.setMaximum(var.get('max', 100))
     widget.setValue(var.get('default', var.get('min', 0)))
@@ -42,23 +46,61 @@ def list_input(var):
     Variables:
         @options (list of strings): What options can be selected?
             @name (string): What it is called (and what should be written)?
-            @tooltip (string): What does the option do? This is optional, and when given should be delimited from name by a ':' (e.g., "ON:Turn this option on.").
+            @tooltip (string): What does the option do? Optional, and must be after a ':' (e.g., "ON:Turn this option on.").
         @default (string): What option should be selected by default, if any?
     """
-    widget = QComboBox()
+    container = QWidget()
+    layout = QVBoxLayout(container)
+    layout.setContentsMargins(0, 0, 0, 0)
+
+    combo = QComboBox()
+    spinbox = QSpinBox()
+    spinbox.setRange(0, 99)
+    spinbox.setSingleStep(1)
+    spinbox.setVisible(False)
+
+    description_label = QLabel()
+    description_label.setWordWrap(True)
+    description_label.setObjectName("description")
+    description_label.setVisible(False)
+
+    option_map = {}  # Store description for each option
     for opt in var.get('options', []):
         if isinstance(opt, str) and ':' in opt:
-            display_text, tooltip = opt.split(':', 1)
+            display_text, suboption_description = opt.split(':', 1)
         else:
-            display_text, tooltip = str(opt), ""
-        widget.addItem(display_text)
+            display_text, suboption_description = str(opt), ""
+        combo.addItem(display_text)
+        option_map[display_text] = suboption_description
+
+    def on_index_changed(index):
+        text = combo.itemText(index)
+        # Show spinbox if option ends with "XX"
+        spinbox.setVisible("XX" in text)
+        # Update description
+        suboption_description = option_map.get(text, "")
+        description_label.setText(suboption_description)
+        description_label.setVisible(bool(suboption_description))
+
+    combo.currentIndexChanged.connect(on_index_changed)
+
     default = var.get('default')
     if default:
-        idx = widget.findText(default)
+        idx = combo.findText(default)
         if idx >= 0:
-            widget.setCurrentIndex(idx)
+            combo.setCurrentIndex(idx)
 
-    return widget
+    layout.addWidget(combo)
+    layout.addWidget(spinbox)
+    layout.addWidget(description_label)
+
+    # Attach spinbox to combo for later access in get_options
+    combo._spinbox = spinbox
+    container.combo = combo
+    container.spinbox = spinbox
+    container.description_label = description_label
+
+    return container
 
 def text_input(var):
     """

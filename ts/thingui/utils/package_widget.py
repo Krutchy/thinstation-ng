@@ -101,25 +101,44 @@ class PackageWidget(QGroupBox):
         # Gather options from all session blocks
         options = {}
         uses_sessions = self.package_data['package'].get('has-sessions', False)
+        
         for block in self.session_blocks:
             session_num = "-1" if not uses_sessions else str(block['session_input'].value())
             for name, widget in block['inputs'].items():
+                value = None
+
+                # QCheckBox
                 if isinstance(widget, QCheckBox):
                     value = widget.true_value if widget.isChecked() else widget.false_value
+
+                # Container widget for list_input with combo and optional spinbox
+                elif isinstance(widget, QWidget) and hasattr(widget, "combo"):
+                    combo = widget.combo
+                    value = combo.currentText()
+                    # Replace XX with spinbox value if visible
+                    if "XX" in value and hasattr(widget, "spinbox") and widget.spinbox.isVisible():
+                        value = value.replace("XX", f"{int(widget.spinbox.value()):02d}")
+
+                # QComboBox directly (if not using container)
                 elif isinstance(widget, QComboBox):
                     value = widget.currentText()
-                elif hasattr(widget, "values"):
-                    value = widget.values()
+
+                # Has text() method (QLineEdit, etc.)
                 elif hasattr(widget, "text"):
                     value = widget.text().strip()
-                else:
-                    value = None
+
+                # Has values() method
+                elif hasattr(widget, "values"):
+                    value = widget.values()
+
                 if value is None or value == "":
                     continue
+
                 if isinstance(value, list):
                     for i, v in enumerate(value):
                         options[name.replace("#", str(i))] = v
                 else:
                     key = name if not uses_sessions else name.replace("#", session_num)
                     options[key] = value
+
         return options
