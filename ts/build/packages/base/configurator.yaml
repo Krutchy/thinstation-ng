@@ -89,6 +89,8 @@ variables:
     description: "A disk label to bind mount point mapping (eg. boot:/boot or home:/root)."
     type: "text"
     repeatable: true
+    start: 0
+    limit: 10
 
   - name: "MENU_SHOWSETTINGS"
     description: "Display Settings item in start menu."
@@ -167,3 +169,25 @@ variables:
     true_value: "ON"
     false_value: "OFF"
     default: false
+
+  - name: "STORAGE_PATH"
+    description: "Path to where storage device is mounted to save profile settings."
+    type: "list"
+    options:
+      - "/mnt/usbdevice/sdX/partX"
+      - "/mnt/floppy"
+      - "/mnt/disc/hdX/partX"
+      - "/mnt/nfs"
+      - "/mnt/smb"
+
+  - name: "STORAGE_PREFIX"
+    description: "This is the prefix for the folder name to store settings in on the storage device. You can also use one of the special characters below:\nM = Mac Address\nH = Hostname\nI = Ip Address"
+    type: "text"
+    default: ".profile"
+
+  - name: "STORAGE_CONFIG#"
+    description: "A disk label to bind mount point mapping (eg. boot:/boot or home:/root)."
+    type: "text"
+    repeatable: true
+    start: 1
+    limit: 8
