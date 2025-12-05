@@ -9,7 +9,7 @@ class PackageApp(QWidget):
         super().__init__()
         self.main_config_data = _load_main_config()
         self.setWindowTitle(self.main_config_data.get("APP_TITLE", "Package Selector"))
-        self.OUTPUT_DIR = self.main_config_data.get("OUTPUT_DIR", "./output")
+        self.OUTPUT_DIR = self.main_config_data.get("OUTPUT_DIR", "./thingui/output")
         self.packages = _load_packages(self.main_config_data)
         self.package_widgets = []
         self._init_ui()
@@ -49,14 +49,14 @@ class PackageApp(QWidget):
         self.resize(int(screen.width() * 0.6), int(screen.height() * 0.6))
 
     def submit(self):
-        if not any(w.is_selected() for w in self.package_widgets):
+        if not any(w.selected.isChecked() for w in self.package_widgets):
             QMessageBox.warning(self, "Validation Error", "Please select at least one package before submitting.")
             return
 
         os.makedirs(self.OUTPUT_DIR, exist_ok=True)
         seen_sessions = set()
         for widget in self.package_widgets:
-            if widget.is_selected():
+            if widget.selected.isChecked():
                 for block in widget.session_blocks:
                     session_val = str(block['session_input'].value()) if block['session_input'] else "-1"
                     if session_val in seen_sessions:
@@ -68,15 +68,15 @@ class PackageApp(QWidget):
         opt_file = os.path.join(self.OUTPUT_DIR, "thinstation.conf.buildtime")
         with open(pkg_file, 'w') as f_pkg, open(opt_file, 'w') as f_opt:
             for cat, pkgs in self.packages.items():
-                widgets = [w for w in self.package_widgets if w.pkg_data in pkgs and w.is_selected()]
+                widgets = [w for w in self.package_widgets if w.package_data in pkgs and w.selected.isChecked()]
                 if not widgets:
                     continue
                 f_pkg.write(f"### {cat} ###\n")
                 for w in widgets:
-                    f_pkg.write(f"package {w.pkg_data['package']['name']}\n")
+                    f_pkg.write(f"package {w.package_data['package']['name']}\n")
                     options = w.get_options()
                     if options:
-                        f_opt.write(f"### {w.pkg_data['package']['name']} ###\n")
+                        f_opt.write(f"### {w.package_data['package']['name']} ###\n")
                         for k, v in options.items():
                             f_opt.write(f"{k}={v}\n")
 

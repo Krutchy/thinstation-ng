@@ -53,6 +53,10 @@ QCheckBox#option_checkbox {
     font-size: 12px;
 }
 
+QCheckBox#selection_checkbox{
+    font-size: 12px;
+}
+
 /* ---------------------------------- */
 QComboBox {
     padding: 4px;

@@ -14,6 +14,7 @@ class PackageWidget(QGroupBox):
         self.session_blocks = []
 
         self.selected = QCheckBox("Enable")
+        self.selected.setObjectName("selection_checkbox")
         self.options_frame = QWidget()
         self.options_frame.setLayout(QVBoxLayout())
         self.options_frame.setVisible(False)
@@ -42,9 +43,6 @@ class PackageWidget(QGroupBox):
         expanded = self.toggle_btn.isChecked()
         self.options_frame.setVisible(expanded)
         self.toggle_btn.setText("\u25B2" if expanded else "\u25BC")
-    
-    def is_selected(self):
-        return self.selected.isChecked()
 
     def _build_options(self):
         uses_sessions = self.package_data['package'].get('has-sessions', False)
