@@ -18,8 +18,7 @@ package:
     - "p11-kit"
     - "vulkan"
 
-
-variables:
+options:
   - name: "SESSION_#_TYPE"
     description: "Set session type."
     type: "text"

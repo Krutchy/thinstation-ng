@@ -1,4 +1,4 @@
-variables:
+options:
   - name: "SESSION_#_TYPE"
     description: "Title description for SESSION. Needed for replimenu."
     type: "text"
