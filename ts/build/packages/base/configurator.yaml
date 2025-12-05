@@ -96,17 +96,17 @@ variables:
     default: false
 
   - name: "DAILY_REBOOT"
-    description: "Reboot server after 24 hours if any sessions have been closed?"
+    description: "Reboots server after 24 hours if any sessions have been closed."
     type: "boolean"
-    true_value: "ON"
-    false_value: "OFF"
+    true_value: "On"
+    false_value: "Off"
     default: false
 
   - name: "CUSTOM_CONFIG"
     description: "What to do when all sessions have exited and not reconnected."
     type: "boolean"
-    true_value: "ON"
-    false_value: "OFF"
+    true_value: "On"
+    false_value: "Off"
     default: false
 
   - name: "RECONNECT_PROMPT"
@@ -123,11 +123,12 @@ variables:
     default: "OFF"
     
   - name: "NO_SESSION"
-    description: "Reboot if there are no sessions? Otherwise power off."
-    type: "boolean"
-    true_value: "REBOOT"
-    false_value: "POWEROFF"
-    default: false
+    description: "What to do in the event that all sessions have exited and not reconnected."
+    type: "list"
+    options:
+      - "REBOOT:Shutdown the terminal."
+      - "POWEROFF:Reboot the terminal."
+    default: "REBOOT"
     
   - name: "DEBUGPAUSE"
     description: "Pause after loading modules but before starting?"
