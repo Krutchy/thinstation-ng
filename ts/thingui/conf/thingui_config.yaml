@@ -1,9 +1,9 @@
 PACKAGE_DIR: "../../build/packages"         # Where should thingui look for packages (default: "../build/packages")?
                                             # Note that relative filepaths will be in relation to the root, "/thingui".
                                             # In other words, "../build/packages" becomes "/thingui/../build/packages".
-OUTPUT_DIR: "./thingui/output"                      # Where should thingui output its build.conf and thinstation.conf.buildtime files (default: "./output")?
+OUTPUT_DIR: "./thingui/output"              # Where should thingui output its build.conf and thinstation.conf.buildtime files (default: "./output")?
 STYLE_FILES:                                # What files should thingui look at for QSS styling?
-  - "./conf/main.qss"                       # This file contains the default styling.
+  - "./styles/main.qss"                     # This file contains the default styling.
                                             # More files can be added.
 CONFIGURATOR_FILENAME: "configurator.yaml"  # What should thingui expect configurator files to be called (default: "configurator.yaml")?
                                             # Note that this shouldn't be changed unless you don't want to see any packages using this name for their configurator.
