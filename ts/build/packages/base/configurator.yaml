@@ -88,7 +88,7 @@ variables:
   - name: "BIND_MOUNT#"
     description: "A disk label to bind mount point mapping (eg. boot:/boot or home:/root)."
     type: "text"
-    default: null
+    repeatable: true
 
   - name: "MENU_SHOWSETTINGS"
     description: "Display Settings item in start menu."
