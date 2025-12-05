@@ -31,6 +31,16 @@ variables:
     step: 1
     default: 50
 
+  - name: "LOCALE"
+    description: "If multiple locales are included in the image, you can use this to select one during boot with a .conf file."
+    type: "text"
+    default: ""
+
+  - name: "TIME_ZONE"
+    description: "Used to set time zone on a TS client with a zone info file. If multiple zone-info files are included, this selection can be refined with additional .conf files."
+    type: "text"
+    default: "America/Los_Angeles"
+
   - name: "SYSLOG_SERVER"
     description: "Log server ip address or hostname. If not specified syslogd is not loaded. Using 'local' logs locally."
     type: "text"
@@ -53,10 +63,32 @@ variables:
     type: "Text"
     default: "NO"
 
+  - name: "DISK_STORAGE_SYNC"
+    description: "Turn ON for safer writing, turn OFF for faster writes to USB storage devices. **WARNING: This may lead to data corruption when the device is unplugged before buffers have been flushed.**"
+    type: "boolean"
+    true_value: "ON"
+    false_value: "OFF"
+    default: false
+
   - name: "USB_MOUNT_OPTIONS"
     description: "Additional mount options for disk devices."
     type: "text"
     default: "local"
+
+  - name: "DISK_MOUNT_OPTIONS"
+    description: "Additional mount options for disk devices (eg. utf8,shortname=win95). Details can be found in mount documentation for details (enter 'man mount' in the terminal)."
+    type: "text"
+    default: null
+
+  - name: "CDROM_MOUNT_OPTIONS"
+    description: "Additional mount options for cdrom devices (eg. utf8,shortname=win95). Details can be found in mount documentation for details (enter 'man mount' in the terminal)."
+    type: "text"
+    default: null
+
+  - name: "BIND_MOUNT#"
+    description: "A disk label to bind mount point mapping (eg. boot:/boot or home:/root)."
+    type: "text"
+    default: null
 
   - name: "MENU_SHOWSETTINGS"
     description: "Display Settings item in start menu."
