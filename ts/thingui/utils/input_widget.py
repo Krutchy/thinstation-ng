@@ -81,29 +81,14 @@ INPUT_TYPE_MAP = {
     "text": text_input,
 }
 
-def _create_input_widget(var):
+def create_input_widget(var):
     """
-    Returns a widget for a variable. Handles repeater case.
+    Returns a widget based on a variable's input type.
     """
-
-    if var['name'].endswith("#"):
-        # Use RepeaterWidget but delegate row creation to normal type
-        base_name = var['name'][:-1]
-        repeater = RepeaterWidget(base_name)
-        default = var.get('default', None)
-        input_type = var.get('type', 'text')
-        factory = INPUT_TYPE_MAP.get(input_type, text_input)
-
-        if isinstance(default, list):
-            for d in default:
-                repeater.add_row(factory({'name': base_name, 'default': d, **var}))
-        elif default is not None:
-            repeater.add_row(factory({'name': base_name, 'default': default, **var}))
-
-        return repeater
-
     input_type = var.get('type', 'text').lower()
-    if input_type in INPUT_TYPE_MAP:
-        return INPUT_TYPE_MAP[input_type](var)
-    else:
-        raise ValueError(f"Unknown input type: {input_type}")
+    widget_factory = lambda: INPUT_TYPE_MAP.get(input_type, text_input)(var)
+
+    if var.get("repeatable", False):
+        return RepeaterWidget(widget_factory, label_text=var.get('name'))
+
+    return widget_factory()

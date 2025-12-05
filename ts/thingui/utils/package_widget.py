@@ -3,7 +3,7 @@ from PySide6.QtWidgets import (
     QPushButton, QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QSizePolicy
 )
 from PySide6.QtCore import Qt
-from .input_widget import _create_input_widget
+from .input_widget import create_input_widget
 
 class PackageWidget(QGroupBox):
     def __init__(self, package_data, app_ref):
@@ -69,7 +69,7 @@ class PackageWidget(QGroupBox):
             header_layout.addStretch()
             layout.addLayout(header_layout)
 
-        inputs = {v['name']: _create_input_widget(v) for v in self.package_data.get("variables", [])}
+        inputs = {v['name']: create_input_widget(v) for v in self.package_data.get("variables", [])}
         for v in self.package_data.get("variables", []):
             name = v['name']
             widget_container = inputs[name]
