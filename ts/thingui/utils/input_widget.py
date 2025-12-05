@@ -82,6 +82,7 @@ def list_input(var):
         description_label.setText(suboption_description)
         description_label.setVisible(bool(suboption_description))
 
+    on_index_changed(combo.currentIndex()) # Refresh immediately to show description.
     combo.currentIndexChanged.connect(on_index_changed)
 
     default = var.get('default')
