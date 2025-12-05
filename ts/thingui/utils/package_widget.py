@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import (
-    QWidget, QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, QCheckBox,
-    QPushButton, QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox, QSizePolicy
+    QWidget, QGroupBox, QVBoxLayout, QHBoxLayout, QLabel, 
+    QCheckBox, QPushButton, QSpinBox, QComboBox
 )
 from PySide6.QtCore import Qt
 from .input_widget import create_input_widget

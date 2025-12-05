@@ -1,4 +1,7 @@
-from PySide6.QtWidgets import QCheckBox, QWidget, QVBoxLayout, QSpinBox, QDoubleSpinBox, QComboBox, QLabel, QLineEdit
+from PySide6.QtWidgets import (
+    QCheckBox, QWidget, QVBoxLayout, QSpinBox, 
+    QDoubleSpinBox, QComboBox, QLabel, QLineEdit
+)
 from .repeater_widget import RepeaterWidget
 
 def boolean_input(var):
