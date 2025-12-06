@@ -69,15 +69,39 @@ class PackageApp(QWidget):
             self.stack_widget.setCurrentWidget(scroll_area)
 
     def submit(self):
-        if not any(sa.widget().selected.isChecked() for sa in self.package_widgets.values()):
+        # Check if at least one package is selected
+        selected_widgets = [sa.widget() for sa in self.package_widgets.values() if sa.widget().selected.isChecked()]
+        if not selected_widgets:
             QMessageBox.warning(self, "Validation Error", "Please select at least one package.")
             return
+
+        # Validate global uniqueness of session numbers
+        all_session_numbers = {}
+        for pkg_widget in selected_widgets:
+            pkg_name = pkg_widget.package_data['package']['name']
+            for block in pkg_widget.session_blocks:
+                if block.session_input:
+                    num = block.session_input.value()
+                    if num in all_session_numbers:
+                        conflicting_pkg = all_session_numbers[num]
+                        QMessageBox.warning(
+                            self,
+                            "Validation Error",
+                            f"Session number {num} is duplicated between packages '{conflicting_pkg}' and '{pkg_name}'."
+                        )
+                        return
+                    all_session_numbers[num] = pkg_name
+
+        # All checks passed, write files
         os.makedirs(self.OUTPUT_DIR, exist_ok=True)
         pkg_file = os.path.join(self.OUTPUT_DIR, "build.conf")
         opt_file = os.path.join(self.OUTPUT_DIR, "thinstation.conf.buildtime")
         with open(pkg_file, 'w') as f_pkg, open(opt_file, 'w') as f_opt:
             for category, pkgs in self.packages.items():
-                widgets = [sa.widget() for sa in self.package_widgets.values() if sa.widget().package_data in pkgs and sa.widget().selected.isChecked()]
+                widgets = [
+                    sa.widget() for sa in self.package_widgets.values()
+                    if sa.widget().package_data in pkgs and sa.widget().selected.isChecked()
+                ]
                 if not widgets:
                     continue
                 f_pkg.write(f"### {category} ###\n")
@@ -88,4 +112,5 @@ class PackageApp(QWidget):
                         f_opt.write(f"### {w.package_data['package']['name']} ###\n")
                         for k, v in options.items():
                             f_opt.write(f"{k}={v}\n")
+
         QMessageBox.information(self, "Done", "Configuration files written successfully!")
