@@ -18,6 +18,11 @@ QLabel#option_label {
     font-size: 12px;
 }
 
+QLabel#global_options_label {
+    font-size: 16px;
+    font-weight: bold;
+}
+
 /* ---------------------------------- */
 /* QPushButton */
 QPushButton {

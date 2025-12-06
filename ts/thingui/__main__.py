@@ -1,29 +1,42 @@
 #!/usr/sbin/python
 import sys
-import os
+from pathlib import Path
 from PySide6.QtWidgets import QApplication
 from .utils.package_app import PackageApp
-from .conf.config import load_main_config, load_packages
+from .conf.config import load_yaml_file, load_packages
 
-def load_styles(app, STYLE_FILES):
-    if not STYLE_FILES: return
+WORKING_DIR = Path(__file__).resolve().parent
 
-    WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
-    for file in STYLE_FILES:
-        path = os.path.join(WORKING_DIR, file)
-        if os.path.exists(path):
-            with open(path, "r") as style:
-                app.setStyleSheet(app.styleSheet() + style.read())
+def load_styles(app, style_files):
+    if not style_files:
+        return
+    styles = []
+    for file in style_files:
+        path = WORKING_DIR / file
+        if path.exists():
+            styles.append(path.read_text())
+    app.setStyleSheet(app.styleSheet() + "\n".join(styles))
 
-if __name__ == "__main__":
+def main():
     app = QApplication(sys.argv)
-    main_config_data = load_main_config("thingui_config.yaml")
-    packages = load_packages(main_config_data)
-    load_styles(app, main_config_data.get("STYLE_FILES", []))
+    config = load_yaml_file("thingui_config.yaml")
+
+    packages = load_packages(
+        config.get("PACKAGE_DIR", "../../build/packages"),
+        config.get("CONFIGURATOR_FILENAME", "configurator.yaml"),
+        config.get("SESSION_CONFIGURATOR_FILEPATH", "../../build/packages/base/session_configurator.yaml"),
+        config.get("DEFAULT_CATEGORY", "Misc")
+    )
+
+    load_styles(app, config.get("STYLE_FILES", []))
+
     window = PackageApp(
-        packages, 
-        main_config_data.get("OUTPUT_DIR", "./thingui/output"), 
-        main_config_data.get("APP_TITLE", "Package Selector")
+        packages,
+        config.get("OUTPUT_DIR", "./thingui/output"),
+        config.get("APP_TITLE", "Package Selector")
     )
     window.show()
     sys.exit(app.exec())
+
+if __name__ == "__main__":
+    main()
