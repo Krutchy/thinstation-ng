@@ -6,9 +6,9 @@ from PySide6.QtCore import Qt
 from .input_widget import create_input_widget
 
 class OptionBlock(QWidget):
-    def __init__(self, variables, uses_sessions=False):
+    def __init__(self, options, uses_sessions=False):
         super().__init__()
-        self.variables = variables
+        self.options = options
         self.uses_sessions = uses_sessions
         self.session_input = None
         self.inputs = {}
@@ -17,7 +17,6 @@ class OptionBlock(QWidget):
 
         if uses_sessions:
             header = QHBoxLayout()
-            header.addWidget(QLabel("Session:"))
             self.session_input = QSpinBox()
             self.session_input.setMinimum(0)
             self.session_input.setFixedWidth(80)
@@ -27,9 +26,9 @@ class OptionBlock(QWidget):
 
         grid = QGridLayout()
         row = 0
-        for var in variables:
-            name = var['name']
-            widget = create_input_widget(var)
+        for opt in options:
+            name = opt['name']
+            widget = create_input_widget(opt)
             self.inputs[name] = widget
 
             label = QLabel(name)
@@ -39,7 +38,7 @@ class OptionBlock(QWidget):
             widget.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
             row += 1
 
-            description = var.get("description")
+            description = opt.get("description")
             if description:
                 desc_label = QLabel(description)
                 desc_label.setWordWrap(True)
