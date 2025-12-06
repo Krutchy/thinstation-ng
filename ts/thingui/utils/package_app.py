@@ -1,8 +1,11 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QTreeWidget, QTreeWidgetItem, QStackedWidget, QPushButton, QScrollArea, QSplitter, QMessageBox
+import os
+from PySide6.QtWidgets import (
+    QWidget, QVBoxLayout, QTreeWidget, QTreeWidgetItem, QStackedWidget, 
+    QPushButton, QScrollArea, QSplitter, QMessageBox
+)
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QGuiApplication
 from .package_widget import PackageWidget
-import os
 
 class PackageApp(QWidget):
     def __init__(self, packages, output_dir, app_title):
